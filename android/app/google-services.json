@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "108840503196",
+    "project_id": "dwa2y-ed034",
+    "storage_bucket": "dwa2y-ed034.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108840503196:android:6a466ce9e11ea7b333aa59",
+        "android_client_info": {
+          "package_name": "com.dwa2y.medicine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "108840503196-3gnfda8oq37pjgeighvujj02i1p264ek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dwa2y.medicine",
+            "certificate_hash": "5fe235e3cced239f80346bb0fc0871e1a0ce2207"
+          }
+        },
+        {
+          "client_id": "108840503196-q00got5mtse0bm4qhgtt8lb90iuefoar.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCali86ebyyYGqCVM-A-qE3lnDxWr3QqT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "108840503196-q00got5mtse0bm4qhgtt8lb90iuefoar.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

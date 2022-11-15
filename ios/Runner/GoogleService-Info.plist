@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>108840503196-55nfoseeb51bhqdhl09qcg1bljgnijgj.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.108840503196-55nfoseeb51bhqdhl09qcg1bljgnijgj</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>108840503196-3gnfda8oq37pjgeighvujj02i1p264ek.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDuL9P4pi9JAvRwB1L-QTntZgJaj3Lslb0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>108840503196</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.dwa2y.medicine</string>
+	<key>PROJECT_ID</key>
+	<string>dwa2y-ed034</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dwa2y-ed034.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:108840503196:ios:805a51196ae9288433aa59</string>
+</dict>
+</plist>
