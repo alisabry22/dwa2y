@@ -47,5 +47,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>this is required to get photos from phone </string>
+	<key>NSCameraUsageDescription</key>
+	<string>to upload photos from camera </string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string> this is required to upload voice notes </string>
 </dict>
 </plist>
