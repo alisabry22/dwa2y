@@ -1,42 +1,85 @@
 {
   "project_info": {
-    "project_number": "108840503196",
-    "project_id": "dwa2y-ed034",
-    "storage_bucket": "dwa2y-ed034.appspot.com"
+    "project_number": "687192945178",
+    "project_id": "dwa2y-d0eff",
+    "storage_bucket": "dwa2y-d0eff.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:108840503196:android:6a466ce9e11ea7b333aa59",
+        "mobilesdk_app_id": "1:687192945178:android:1e11c70c0750bfa43b97a3",
         "android_client_info": {
-          "package_name": "com.dwa2y.medicine"
+          "package_name": "com.example.dwa2y"
         }
       },
       "oauth_client": [
         {
-          "client_id": "108840503196-3gnfda8oq37pjgeighvujj02i1p264ek.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.dwa2y.medicine",
-            "certificate_hash": "5fe235e3cced239f80346bb0fc0871e1a0ce2207"
-          }
-        },
-        {
-          "client_id": "108840503196-q00got5mtse0bm4qhgtt8lb90iuefoar.apps.googleusercontent.com",
+          "client_id": "687192945178-1viptv8om5evkjlv2ulkm172ne6rduc0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCali86ebyyYGqCVM-A-qE3lnDxWr3QqT8"
+          "current_key": "AIzaSyClUfFyIuGPYHscZLpglHR36P_YC2mtLwE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "108840503196-q00got5mtse0bm4qhgtt8lb90iuefoar.apps.googleusercontent.com",
+              "client_id": "687192945178-1viptv8om5evkjlv2ulkm172ne6rduc0.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "687192945178-oasblfparcqgvdqdhfoqcq6668r3uk8s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.dwa2y"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687192945178:android:d010c4696c2bb1a03b97a3",
+        "android_client_info": {
+          "package_name": "com.medicine.dwa2y"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "687192945178-pjl0l29c4ubltovkg7kd4nieb3rh1lba.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.medicine.dwa2y",
+            "certificate_hash": "5fe235e3cced239f80346bb0fc0871e1a0ce2207"
+          }
+        },
+        {
+          "client_id": "687192945178-1viptv8om5evkjlv2ulkm172ne6rduc0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClUfFyIuGPYHscZLpglHR36P_YC2mtLwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "687192945178-1viptv8om5evkjlv2ulkm172ne6rduc0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "687192945178-oasblfparcqgvdqdhfoqcq6668r3uk8s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.dwa2y"
+              }
             }
           ]
         }
