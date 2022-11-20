@@ -30,7 +30,7 @@ class SignUpScreen extends GetView<AuthServices> {
           elevation: 0,
         ),
         body: SingleChildScrollView(
-          reverse: true,
+
             child: Container(
               height: height,
               width: width,
@@ -47,7 +47,7 @@ class SignUpScreen extends GetView<AuthServices> {
             child:   GetX<AuthServices>(
               builder: (controller){
                 return Padding(
-                  padding: const EdgeInsets.only(left: 15,right: 15),
+                  padding: const EdgeInsets.only(left: 15,right: 15,top: 20),
                   child: Form(
                                 child: Column(
                                      crossAxisAlignment: CrossAxisAlignment.center,
@@ -91,7 +91,7 @@ class SignUpScreen extends GetView<AuthServices> {
                                   ],
                                 ),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 15,
                                 ),
                                 Center(
                                   child: Stack(
@@ -115,18 +115,20 @@ class SignUpScreen extends GetView<AuthServices> {
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 15,
                                 ),
                                 customTextField(hintText: "username"),
                                 const SizedBox(
-                                  height: 15,
+                                  height: 20,
                                 ),
                                 IntlPhoneField(
                                   showCountryFlag: true,
                                   initialCountryCode: "EG",
+                                
                                   style: GoogleFonts.roboto(color: Colors.black),
                                   decoration: InputDecoration(
                                     hintText: "Phone",
+                                    counterStyle: GoogleFonts.roboto(color:Colors.white),
                                     hintStyle: GoogleFonts.ubuntu(color: Colors.grey),
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(12),
