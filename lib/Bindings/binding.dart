@@ -5,7 +5,6 @@ class Binding implements Bindings{
   @override
   void dependencies() {
     Get.lazyPut(() => AuthServices(),fenix:true );
-    // TODO: implement dependencies
   }
 
 }

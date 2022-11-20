@@ -1,3 +1,4 @@
+import 'package:dwa2y/Constants/constants.dart';
 import 'package:dwa2y/Pages/AuthPages/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,9 +11,9 @@ class IntroductionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+
       body: IntroductionScreen(
-        globalBackgroundColor: Colors.white,
+       
         dotsDecorator: DotsDecorator(
             size: const Size.square(10.0),
             activeSize: const Size(20.0, 10.0),
