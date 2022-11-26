@@ -4,17 +4,21 @@ import 'package:google_fonts/google_fonts.dart';
 class customTextField extends StatelessWidget {
 
 final String hintText;
+String? Function(String?)? validator;
+TextEditingController controller;
 
-   customTextField({
+   customTextField({super.key, 
     required this.hintText,
-    Key? key,
+    required this.validator,
+    required this.controller,
   });
    
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
+      controller:controller ,
+      validator:validator ,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: GoogleFonts.ubuntu(color: Colors.grey),
