@@ -66,27 +66,30 @@ class VerificationPhone extends GetView<AuthServices> {
               ),
             
                 
-                     GetX<AuthServices>(
-                      builder: (controller){
-                         return  customElevatedButton(
+                 
+                        customElevatedButton(
                                          width: width,
                                          height: height * 0.4,
                                          onPressed: () {
                                           
                                           controller.verifyOTP(otpCode);
-
+                                          
                                          },
                                          text: "Continue"
                                      
                                     
-                                   );
-                      },
+                                   ),
+                    
                      
-                     ),
+                
             ],
           ),
         ),
       ),
     );
   }
+
+
 }
+
+

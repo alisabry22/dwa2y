@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,11 +8,15 @@ class customTextField extends StatelessWidget {
 final String hintText;
 String? Function(String?)? validator;
 TextEditingController controller;
+Widget? suffixIcon;
+bool obscureValue;
 
    customTextField({super.key, 
     required this.hintText,
     required this.validator,
     required this.controller,
+    this.suffixIcon,
+    this.obscureValue=false,
   });
    
 
@@ -19,7 +25,9 @@ TextEditingController controller;
     return TextFormField(
       controller:controller ,
       validator:validator ,
+      obscureText: obscureValue,
       decoration: InputDecoration(
+        suffixIcon:suffixIcon ,
         hintText: hintText,
         hintStyle: GoogleFonts.ubuntu(color: Colors.grey),
         enabledBorder: OutlineInputBorder(

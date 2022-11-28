@@ -149,7 +149,7 @@ class SignUpScreen extends GetView<AuthServices> {
                             controller: controller.phoneController,
                             initialCountryCode: controller.countrycode.value,
                             onCountryChanged: (value) {
-                              controller.dialCode.value=value.dialCode;
+                              controller.dialCode.value = value.dialCode;
                               controller.countrycode.value = value.dialCode;
                             },
                             style: GoogleFonts.roboto(color: Colors.black),
@@ -173,31 +173,44 @@ class SignUpScreen extends GetView<AuthServices> {
                           const SizedBox(
                             height: 10,
                           ),
-                          customTextField(
-                            hintText: "Password",
-                            controller: controller.passwordController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Please enter correct password";
-                              }
-                              return null;
-                            },
-                          ),
+                          GetX<AuthServices>(builder: (controller) {
+                            return customTextField(
+                              obscureValue: controller.obscurepassword.value,
+                              suffixIcon: controller.obscurepassword.value
+                                  ? InkWell(onTap: (){controller.obscurepassword.value=!controller.obscurepassword.value;},child:  Icon(FontAwesomeIcons.lock,color: Constants().primaryColor,))
+                                  : InkWell(onTap: (){controller.obscurepassword.value=!controller.obscurepassword.value;},child:  Icon(FontAwesomeIcons.lockOpen,color:Constants().primaryColor)),
+                              hintText: "Password",
+                              controller: controller.passwordController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Please enter correct password";
+                                }
+                                return null;
+                              },
+                            );
+                          }),
                           const SizedBox(
                             height: 20,
                           ),
-                          customTextField(
-                            hintText: "ConfirmPassword",
-                            controller: controller.confirmPasswordController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Please enter correct password";
-                              } else {
-                                if (controller.passwordController.text .toString() != value) {
-                                  return "passwords don't match";
-                                }
-                                return null;
-                              }
+                          GetX<AuthServices>(
+                            builder: (controller) {
+                              return customTextField(
+                                hintText: "ConfirmPassword",
+                                obscureValue: controller.obscurepassword.value,
+                                controller:controller.confirmPasswordController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Please enter correct password";
+                                  } else {
+                                    if (controller.passwordController.text
+                                            .toString() !=
+                                        value) {
+                                      return "passwords don't match";
+                                    }
+                                    return null;
+                                  }
+                                },
+                              );
                             },
                           ),
                           const SizedBox(
@@ -206,11 +219,14 @@ class SignUpScreen extends GetView<AuthServices> {
                           customElevatedButton(
                               width: width,
                               height: height * 0.4,
-                              onPressed: () async{
-                                if (controller.formkey.currentState!.validate()) {
-                                  String phone=controller.dialCode.value+controller.phoneController.text;
+                              onPressed: () async {
+                                if (controller.formkey.currentState!
+                                    .validate()) {
+                                  String phone = controller.dialCode.value +
+                                      controller.phoneController.text;
                                   controller.authenticateWithPhone(phone);
-                                  Get.to(() =>  VerificationPhone());
+                                  Get.to(() => VerificationPhone(),
+                                      arguments: []);
                                 }
                               },
                               text: "Sign Up"),
