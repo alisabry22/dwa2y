@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dwa2y/Constants/constants.dart';
 import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
+import 'package:dwa2y/Controllers/AuthRepositories/location_controller.dart';
 import 'package:dwa2y/Pages/AuthPages/verification_phone.dart';
 import 'package:dwa2y/Widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class SignUpScreen extends GetView<AuthServices> {
 
   @override
   Widget build(BuildContext context) {
+    print(Get.find<LocationController>().long.value +  Get.find<LocationController>().lat.value);
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
@@ -223,11 +225,9 @@ class SignUpScreen extends GetView<AuthServices> {
                               onPressed: () async {
                                 if (controller.formkey.currentState!
                                     .validate()) {
-                                  String phone = controller.dialCode.value +
-                                      controller.phoneController.text;
+                                  String phone = controller.dialCode.value + controller.phoneController.text;
                                   controller.authenticateWithPhone(phone);
-                                  Get.to(() => VerificationPhone(),
-                                      arguments: []);
+                                  Get.to(() => VerificationPhone());
                                 }
                               },
                               text: "Sign Up"),

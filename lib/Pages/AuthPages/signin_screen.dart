@@ -120,7 +120,9 @@ class SignInScreen extends GetView<AuthServices> {
                   ),
                 ),
                 
-                CustomElevatedButton(text: "Sign In",width: width, height: height,onPressed: (){},),
+                CustomElevatedButton(text: "Sign In",width: width, height: height,onPressed: (){
+                  
+                },),
              const   SizedBox(
                   height: 20,
                 ),

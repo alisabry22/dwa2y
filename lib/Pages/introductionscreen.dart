@@ -1,10 +1,11 @@
+import 'package:dwa2y/Controllers/AuthRepositories/location_controller.dart';
 import 'package:dwa2y/Pages/AuthPages/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-class IntroductionPage extends StatelessWidget {
+class IntroductionPage extends GetView<LocationController> {
   const IntroductionPage({super.key});
 
   @override
@@ -62,8 +63,7 @@ class IntroductionPage extends StatelessWidget {
                   fontSize: 25,
                   letterSpacing: 0.8),
             ),
-            body:
-                "Upload your perscription and let pharmacies do the rest ",
+            body: "Upload your perscription and let pharmacies do the rest ",
             image: Center(
               child: Image.asset('assets/images/Prescription2.jpg'),
             ),
