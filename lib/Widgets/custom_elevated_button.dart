@@ -3,12 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../Constants/constants.dart';
 
-class customElevatedButton extends StatelessWidget {
+class CustomElevatedButton extends StatelessWidget {
     final double width;
   final double height;
   final void Function() onPressed;
   final String text;
-  const customElevatedButton({
+  const CustomElevatedButton({
     Key? key,
     required this.width,
     required this.height,

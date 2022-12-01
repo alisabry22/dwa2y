@@ -119,7 +119,8 @@ class SignInScreen extends GetView<AuthServices> {
                     onPressed: () {},
                   ),
                 ),
-                customElevatedButton(text: "Sign In",width: width, height: height,onPressed: (){},),
+                
+                CustomElevatedButton(text: "Sign In",width: width, height: height,onPressed: (){},),
              const   SizedBox(
                   height: 20,
                 ),
@@ -166,7 +167,7 @@ class SignInScreen extends GetView<AuthServices> {
                       ),
                     ),
                                 TextButton(onPressed: (){
-                                  Get.to(()=> SignUpScreen());
+                                  Get.to(()=>const SignUpScreen());
                                 }, child: Text("Register Now",style: GoogleFonts.roboto(color: Colors.white),))
                   ],
                 ),

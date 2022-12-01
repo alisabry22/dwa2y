@@ -1,7 +1,6 @@
 import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Constants/constants.dart';
@@ -26,7 +25,7 @@ class HomeScreen extends StatelessWidget {
             Row(children: [
               TextButton(onPressed: (){
                 AuthServices().signOut();
-              }, child:Text("Signout"))
+              }, child:const Text("Signout"))
             ],),
           ],
         ) ,

@@ -1,14 +1,17 @@
 import 'package:dwa2y/Constants/constants.dart';
 import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
-import 'package:dwa2y/Widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../Widgets/custom_elevated_button.dart';
+
 class VerificationPhone extends GetView<AuthServices> {
   String otpCode = "";
+
+  VerificationPhone({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +70,7 @@ class VerificationPhone extends GetView<AuthServices> {
             
                 
                  
-                        customElevatedButton(
+                        CustomElevatedButton(
                                          width: width,
                                          height: height * 0.4,
                                          onPressed: () {

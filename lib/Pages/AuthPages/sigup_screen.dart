@@ -1,19 +1,20 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dwa2y/Constants/constants.dart';
 import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
 import 'package:dwa2y/Pages/AuthPages/verification_phone.dart';
 import 'package:dwa2y/Widgets/custom_elevated_button.dart';
-import 'package:dwa2y/Widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:sms_autofill/sms_autofill.dart';
+
+import '../../Widgets/custom_text_field.dart';
 
 class SignUpScreen extends GetView<AuthServices> {
+  const SignUpScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -131,7 +132,7 @@ class SignUpScreen extends GetView<AuthServices> {
                           const SizedBox(
                             height: 15,
                           ),
-                          customTextField(
+                          CustomTextField(
                             hintText: "username",
                             controller: controller.usernameController,
                             validator: (value) {
@@ -174,7 +175,7 @@ class SignUpScreen extends GetView<AuthServices> {
                             height: 10,
                           ),
                           GetX<AuthServices>(builder: (controller) {
-                            return customTextField(
+                            return CustomTextField(
                               obscureValue: controller.obscurepassword.value,
                               suffixIcon: controller.obscurepassword.value
                                   ? InkWell(onTap: (){controller.obscurepassword.value=!controller.obscurepassword.value;},child:  Icon(FontAwesomeIcons.lock,color: Constants().primaryColor,))
@@ -194,7 +195,7 @@ class SignUpScreen extends GetView<AuthServices> {
                           ),
                           GetX<AuthServices>(
                             builder: (controller) {
-                              return customTextField(
+                              return CustomTextField(
                                 hintText: "ConfirmPassword",
                                 obscureValue: controller.obscurepassword.value,
                                 controller:controller.confirmPasswordController,
@@ -216,7 +217,7 @@ class SignUpScreen extends GetView<AuthServices> {
                           const SizedBox(
                             height: 20,
                           ),
-                          customElevatedButton(
+                          CustomElevatedButton(
                               width: width,
                               height: height * 0.4,
                               onPressed: () async {
