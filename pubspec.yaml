@@ -40,6 +40,7 @@ dependencies:
   geolocator: ^9.0.2
   geocoding: ^2.0.5
   flutter_launcher_icons: ^0.11.0
+  google_maps_flutter: ^2.2.1
  
 
 dev_dependencies:
@@ -74,6 +75,9 @@ flutter:
     - assets/images/google.svg
     - assets/images/patient.png
     - assets/images/pharmacy.png
+    - assets/images/pharmacyPlace.png
+    - assets/images/order.png
+    - assets/images/prescriptionIcon.png
    
 
   # An image asset can refer to one or more resolution-specific "variants", see

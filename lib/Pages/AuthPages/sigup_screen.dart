@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dwa2y/Constants/constants.dart';
 import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
-import 'package:dwa2y/Controllers/AuthRepositories/location_controller.dart';
+import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
 import 'package:dwa2y/Pages/AuthPages/verification_phone.dart';
 import 'package:dwa2y/Widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';

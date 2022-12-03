@@ -1,99 +1,32 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
+import 'package:dwa2y/Controllers/AuthRepositories/home_controller.dart';
+import 'package:dwa2y/Controllers/bottomNavigationServices/bottom_nav_controller.dart';
+
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Constants/constants.dart';
 
-class HomeScreen extends GetView<AuthServices> {
+class HomeScreen extends GetView<HomeController> {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    print(controller.usermodel.value.username);
     return Scaffold(
       backgroundColor: Colors.transparent,
-      drawer: Drawer(
-          backgroundColor: Color(0xff2B3A55),
-          width: MediaQuery.of(context).size.width * 0.7,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              DrawerHeader(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Constants().primaryColor.withOpacity(0.6),
-                          Constants().primaryColor.withOpacity(0.3),
-                        ]),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                       CircleAvatar(
-                        backgroundImage: controller.usermodel.value.profileImageLink.isNotEmpty
-                            ? CachedNetworkImageProvider(controller.usermodel.value.profileImageLink)as ImageProvider
-                            : const AssetImage("assets/images/patient.png"),
-                        radius: 35,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        controller.usermodel.value.username,
-                        style: GoogleFonts.roboto(
-                            fontSize: 18, color: Colors.white),
-                      ),
-                    ],
-                  )),
-              ListTile(
-                title: Text(
-                  "Upload Prescrition",
-                  style: GoogleFonts.roboto(fontSize: 16, color: Colors.white),
-                ),
-              ),
-              ListTile(
-                title: Text(
-                  "View My Orders",
-                  style: GoogleFonts.roboto(fontSize: 16, color: Colors.white),
-                ),
-              ),
-               ListTile(
-                title: Text(
-                  "Edit Profile",
-                  style: GoogleFonts.roboto(fontSize: 16, color: Colors.white),
-                ),
-              ),
-              ListTile(
-                title: Text(
-                  "Language",
-                  style: GoogleFonts.roboto(fontSize: 16, color: Colors.white),
-                ),
-              ),
-              InkWell(
-                onTap: (){
-                  controller.signOut();
-                },
-                child: ListTile(
-                  title: Text(
-                    "Logout",
-                    style: GoogleFonts.roboto(fontSize: 16, color: Colors.white),
-                  ),
-                ),
-              ),
-            ],
-          )),
       appBar: AppBar(
-        title: Text("Welcome ${controller.usermodel.value.username}, ",
-            style: GoogleFonts.ubuntu(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white)),
+        title: GetX<HomeController>(
+          builder: (controller) {
+            return Text(
+                "Welcome ${controller.currentUserData.value.username}, ",
+                style: GoogleFonts.ubuntu(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white));
+          },
+        ),
         backgroundColor: Constants().primaryColor.withOpacity(0.6),
         elevation: 0,
       ),
@@ -107,7 +40,128 @@ class HomeScreen extends GetView<AuthServices> {
                 Constants().primaryColor.withOpacity(0.3),
               ]),
         ),
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: GridView.count(
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            padding: const EdgeInsets.all(20),
+            crossAxisCount: 2,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  gradient: const LinearGradient(colors: [
+                    Color.fromARGB(255, 4, 16, 89),
+                    Color.fromARGB(255, 1, 15, 57),
+                  ]),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const CircleAvatar(
+                      backgroundImage: AssetImage("assets/images/prescriptionIcon.png"),
+                      radius: 30,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      "Upload Prescription",
+                      style:
+                          GoogleFonts.roboto(color: Colors.white, fontSize: 16),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  gradient: const LinearGradient(colors: [
+                    Color.fromARGB(255, 4, 16, 89),
+                    Color.fromARGB(255, 1, 15, 57),
+                  ]),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const CircleAvatar(
+                      backgroundImage: AssetImage("assets/images/order.png"),
+                      radius: 30,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      "View my Orders",
+                      style:
+                          GoogleFonts.roboto(color: Colors.white, fontSize: 16),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  
+                  borderRadius: BorderRadius.circular(25),
+                  gradient: const LinearGradient(colors: [
+                    Color.fromARGB(255, 4, 16, 89),
+                    Color.fromARGB(255, 1, 15, 57),
+                  ]),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const CircleAvatar(
+                      backgroundImage: AssetImage("assets/images/pharmacyPlace.png"),
+                      radius: 30,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      " Nearby Pharmacies",
+                      style:
+                          GoogleFonts.roboto(color: Colors.white, fontSize: 16),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  gradient: const LinearGradient(colors: [
+                    Color.fromARGB(255, 4, 16, 89),
+                    Color.fromARGB(255, 1, 15, 57),
+                  ]),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const CircleAvatar(
+                      backgroundImage: AssetImage("assets/images/patient.png"),
+                      radius: 30,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      "Request Help",
+                      style:
+                          GoogleFonts.roboto(color: Colors.white, fontSize: 16),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
+      
     );
   }
 }

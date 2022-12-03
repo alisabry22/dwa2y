@@ -1,4 +1,4 @@
-import 'package:dwa2y/Controllers/AuthRepositories/location_controller.dart';
+import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
 import 'package:dwa2y/Pages/AuthPages/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

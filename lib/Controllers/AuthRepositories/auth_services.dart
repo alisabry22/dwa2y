@@ -2,9 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dwa2y/Controllers/AuthRepositories/location_controller.dart';
+import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
 import 'package:dwa2y/Models/user_model.dart';
 import 'package:dwa2y/Pages/AuthPages/signin_screen.dart';
+import 'package:dwa2y/Pages/dashboard_page.dart';
 import 'package:dwa2y/Pages/home_screen.dart';
 import 'package:dwa2y/Pages/introductionscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -42,7 +43,6 @@ class AuthServices extends GetxController {
   RxString verificationId = "".obs;
   RxBool obscurepassword = true.obs;
   late SharedPreferences sharedprefs;
-   String? sharedPrefCurrentUser;
 
   @override
   void onInit() async {
@@ -50,19 +50,14 @@ class AuthServices extends GetxController {
     currentuser.bindStream(FirebaseAuth.instance.authStateChanges());
     ever(currentuser, _setInitialScreen);
     sharedprefs = await SharedPreferences.getInstance();
-    sharedPrefCurrentUser= sharedprefs.getString("UserID")!;
+
+    
     
     super.onInit();
   }
 
   _setInitialScreen(User? user) {
-    if(user==null){
-      Get.offAll(()=>const IntroductionPage());
-    }else{
-  
-      usermodel.bindStream(getCurrentUserData());
-      Get.offAll(()=>const HomeScreen());
-    }
+   user==null?Get.offAll(()=>const IntroductionPage()):Get.offAll(()=>const DashBoardPage());
   }
 
   Future pickprofileImage() async {
@@ -149,11 +144,15 @@ class AuthServices extends GetxController {
     final userId = FirebaseAuth.instance.currentUser!.uid;
 
     final storage = FirebaseStorage.instance.ref("profileImages/$userId");
-    File profileImageToUpload = File(profileImagePath.value);
+    if(profileImagePath.value.isNotEmpty){
+ File profileImageToUpload = File(profileImagePath.value);
     await storage.putFile(profileImageToUpload);
-
-    String downloadUrl = await storage.getDownloadURL();
+     String downloadUrl = await storage.getDownloadURL();
     return downloadUrl;
+    }return "";
+   
+
+   
   }
 
   Future saveWholeDataInDatabase() async {
@@ -176,18 +175,7 @@ class AuthServices extends GetxController {
     );
   }
 
-  void signOut()  {
-     FirebaseAuth.instance.signOut();
-    Get.offAll(() => const SignInScreen());
-  }
 
- Stream<UserModel> getCurrentUserData()  {
-    final usersCollection =FirebaseFirestore.instance.collection("users");
-        print("event.data");
- return   usersCollection.doc(sharedPrefCurrentUser).snapshots().map((event) {
 
-    return UserModel.fromDocumentSnapshot(event);
- });
 
-  }
 }

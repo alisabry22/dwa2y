@@ -24,15 +24,15 @@ class UserModel {
   });
   factory UserModel.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
     return UserModel(
-      username: documentSnapshot.data()!["username"],
-      phone: documentSnapshot.data()!["phone"],
-      createdAt: documentSnapshot.data()!["createdAt"],
-      profileImageLink: documentSnapshot.data()!["profileImageLink"],
-      updatedAt: documentSnapshot.data()!["updatedAt"],
-      lat: documentSnapshot.data()!["lat"],
-      long: documentSnapshot.data()!["long"],
-      countrycode: documentSnapshot.data()!["countryCode"],
-      type: documentSnapshot.data()!["type"],
+      username: documentSnapshot.data()!["username"]??"",
+      phone: documentSnapshot.data()!["phone"]??"",
+      createdAt: documentSnapshot.data()!["createdAt"]??"",
+      profileImageLink: documentSnapshot.data()!["profileImageLink"]??"",
+      updatedAt: documentSnapshot.data()!["updatedAt"]??"",
+      lat: documentSnapshot.data()!["lat"]??"",
+      long: documentSnapshot.data()!["long"]??"",
+      countrycode: documentSnapshot.data()!["countryCode"]??"",
+      type: documentSnapshot.data()!["type"]??"",
     );
   }
 
