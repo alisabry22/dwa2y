@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Models/user_model.dart';
-import '../../Pages/AuthPages/signin_screen.dart';
 
 class HomeController extends GetxController {
 
@@ -25,16 +24,21 @@ class HomeController extends GetxController {
   void onInit() async {
     sharedprefs = await SharedPreferences.getInstance();
     sharedPrefCurrentUser = sharedprefs.getString("UserID");
-    currentUserData.bindStream(getCurrentUserData());
+    currentUserData.bindStream(_getCurrentUserData());
    
     super.onInit();
   }
 
-  Stream<UserModel> getCurrentUserData() {
+  Stream<UserModel> _getCurrentUserData() {
+    print("home stream");
+
     final usersCollection = FirebaseFirestore.instance.collection("users");
-    return usersCollection.doc(sharedPrefCurrentUser).snapshots().map((event) {
+
+        return usersCollection.doc(FirebaseAuth.instance.currentUser!.uid).snapshots().map((event) {
       return UserModel.fromDocumentSnapshot(event);
     });
+   
+  
   }
 
 

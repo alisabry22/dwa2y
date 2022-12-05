@@ -33,7 +33,7 @@ class IntroductionPage extends GetView<LocationController> {
         ),
         next: Text("Next", style: GoogleFonts.roboto()),
         onDone: () {
-         Get.offAll(()=>const SignInScreen());
+         Get.offAll(()=> SignInScreen());
         },
         pages: [
           PageViewModel(

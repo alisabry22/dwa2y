@@ -3,22 +3,22 @@ import 'dart:io';
 import 'package:dwa2y/Constants/constants.dart';
 import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
 import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
-import 'package:dwa2y/Pages/AuthPages/verification_phone.dart';
 import 'package:dwa2y/Widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../Widgets/custom_text_field.dart';
 
 class SignUpScreen extends GetView<AuthServices> {
-  const SignUpScreen({super.key});
+   final formKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
-    print(Get.find<LocationController>().long.value +  Get.find<LocationController>().lat.value);
+    print(Get.find<LocationController>().long.value +
+        Get.find<LocationController>().lat.value);
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
@@ -53,7 +53,7 @@ class SignUpScreen extends GetView<AuthServices> {
                 return Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
                   child: Form(
-                      key: controller.formkey,
+                      key: formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -136,7 +136,7 @@ class SignUpScreen extends GetView<AuthServices> {
                           ),
                           CustomTextField(
                             hintText: "username",
-                            controller: controller.usernameController,
+                            controller: controller.usernameController.value,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "Please Enter correct Username";
@@ -147,32 +147,14 @@ class SignUpScreen extends GetView<AuthServices> {
                           const SizedBox(
                             height: 20,
                           ),
-                          IntlPhoneField(
-                            showCountryFlag: true,
-                            controller: controller.phoneController,
-                            initialCountryCode: controller.countrycode.value,
-                            onCountryChanged: (value) {
-                              controller.dialCode.value = value.dialCode;
-                              controller.countrycode.value = value.dialCode;
-                            },
-                            style: GoogleFonts.roboto(color: Colors.black),
-                            decoration: InputDecoration(
-                              hintText: "Phone",
-                              counterStyle:
-                                  GoogleFonts.roboto(color: Colors.white),
-                              hintStyle: GoogleFonts.ubuntu(color: Colors.grey),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(
-                                      width: 2, color: Colors.white)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(
-                                      width: 2, color: Colors.white)),
-                              fillColor: Colors.white,
-                              filled: true,
-                            ),
-                          ),
+                          CustomTextField(
+                              hintText: "Email",
+                              validator: (value) {
+                                if(value==null|| value.isEmpty ){
+                                      return "please enter Email";
+                                }
+                              },
+                              controller: controller.emailController.value),
                           const SizedBox(
                             height: 10,
                           ),
@@ -180,10 +162,24 @@ class SignUpScreen extends GetView<AuthServices> {
                             return CustomTextField(
                               obscureValue: controller.obscurepassword.value,
                               suffixIcon: controller.obscurepassword.value
-                                  ? InkWell(onTap: (){controller.obscurepassword.value=!controller.obscurepassword.value;},child:  Icon(FontAwesomeIcons.lock,color: Constants().primaryColor,))
-                                  : InkWell(onTap: (){controller.obscurepassword.value=!controller.obscurepassword.value;},child:  Icon(FontAwesomeIcons.lockOpen,color:Constants().primaryColor)),
+                                  ? InkWell(
+                                      onTap: () {
+                                        controller.obscurepassword.value =
+                                            !controller.obscurepassword.value;
+                                      },
+                                      child: Icon(
+                                        FontAwesomeIcons.lock,
+                                        color: Constants().primaryColor,
+                                      ))
+                                  : InkWell(
+                                      onTap: () {
+                                        controller.obscurepassword.value =
+                                            !controller.obscurepassword.value;
+                                      },
+                                      child: Icon(FontAwesomeIcons.lockOpen,
+                                          color: Constants().primaryColor)),
                               hintText: "Password",
-                              controller: controller.passwordController,
+                              controller: controller.passwordController.value,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "Please enter correct password";
@@ -200,12 +196,13 @@ class SignUpScreen extends GetView<AuthServices> {
                               return CustomTextField(
                                 hintText: "ConfirmPassword",
                                 obscureValue: controller.obscurepassword.value,
-                                controller:controller.confirmPasswordController,
+                                controller:
+                                    controller.confirmPasswordController.value,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return "Please enter correct password";
                                   } else {
-                                    if (controller.passwordController.text
+                                    if (controller.passwordController.value.text
                                             .toString() !=
                                         value) {
                                       return "passwords don't match";
@@ -223,12 +220,18 @@ class SignUpScreen extends GetView<AuthServices> {
                               width: width,
                               height: height * 0.4,
                               onPressed: () async {
-                                if (controller.formkey.currentState!
-                                    .validate()) {
-                                  String phone = controller.dialCode.value + controller.phoneController.text;
-                                  controller.authenticateWithPhone(phone);
-                                  Get.to(() => VerificationPhone());
-                                }
+                                print(formKey.currentState!.validate());
+                                if (formKey.currentState!.validate()) {
+                                  var response = await controller.signUpWithEmailandPassword();
+                                   print(response);
+                                  //sign up
+                                  if (response is String) {
+                                    Get.snackbar(response, response.toString(),snackPosition: SnackPosition.BOTTOM,duration: const Duration(milliseconds: 3));
+                                  }else{
+
+                                    controller.saveWholeDataInDatabase();
+                                  }
+                                } 
                               },
                               text: "Sign Up"),
                           Row(
@@ -240,12 +243,20 @@ class SignUpScreen extends GetView<AuthServices> {
                                     color: Colors.white, fontSize: 14),
                               ),
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+
+                                  },
                                   child: Text("Login",
                                       style: GoogleFonts.roboto(
                                           color: Colors.white,
                                           fontSize: 14,
-                                          fontWeight: FontWeight.bold))),
+                                          fontWeight: FontWeight.bold,
+                                          decoration: TextDecoration.underline,
+
+                                          
+                                          ),
+                                          
+                                          )),
                             ],
                           ),
                         ],
