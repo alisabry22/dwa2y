@@ -1,18 +1,20 @@
+import 'package:dwa2y/Controllers/GooglemapControllers/google_map_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../Constants/constants.dart';
 
-class GoogleMapPage extends StatelessWidget {
+class GoogleMapPage extends GetView<GoogleMapServicers> {
   const GoogleMapPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-        appBar: AppBar(
+      appBar: AppBar(
         title: Text(
           "Pick Location",
           style: GoogleFonts.roboto(color: Colors.white, fontSize: 16),
@@ -31,6 +33,16 @@ class GoogleMapPage extends StatelessWidget {
                 Constants().primaryColor.withOpacity(0.6),
                 Constants().primaryColor.withOpacity(0.3),
               ]),
+        ),
+        child: GoogleMap(initialCameraPosition: controller.cameraPosition,
+        markers: Set<Marker>.of(controller.markers),
+        mapType: MapType.normal,
+        myLocationEnabled: true,
+        
+        onMapCreated: (GoogleMapController cont) {
+          print("created map");
+          controller.controller.complete(cont);
+        },
         ),
       ),
     );
