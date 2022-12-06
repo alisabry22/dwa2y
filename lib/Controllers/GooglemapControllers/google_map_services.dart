@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
+import 'package:dwa2y/Controllers/AuthRepositories/home_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -9,6 +12,7 @@ import '../../Models/user_model.dart';
 
 class GoogleMapServicers extends GetxController {
   Completer<GoogleMapController> controller = Completer();
+  Rx<TextEditingController> searchPlace=TextEditingController().obs;
    late CameraPosition cameraPosition=CameraPosition(
         target: LatLng(20.42796133580664,
             75.885749655962),
@@ -39,6 +43,7 @@ class GoogleMapServicers extends GetxController {
     currentUserData.value=await getInitialData();
     currentUserData.bindStream(getCrruntUserData());
     print(currentUserData.value.lat+" "+currentUserData.value.long);
+   print(Get.find<HomeController>().currentUserData.value.lat); 
 
 
     super.onInit();

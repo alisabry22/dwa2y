@@ -44,7 +44,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBIPJKnGLcFd4RoScPQujDqD-jv7mtH0jw',
+    apiKey: 'AIzaSyClHN31_AJxOD2z9LzWZ8i9UgVsBoL3ftE',
     appId: '1:104216248112:web:4b9561dbcb7bc226f6d2f5',
     messagingSenderId: '104216248112',
     projectId: 'dwa2y-3cb9f',
@@ -53,7 +53,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBIc4_9-Y-2-7O_2JSkQ5mb2_Le9lI3Tvo',
+    apiKey: 'AIzaSyDEUhNhAlTVL6DjXYrSuaHAQLW1ftm1h1U',
     appId: '1:104216248112:android:f9dcb013a188856af6d2f5',
     messagingSenderId: '104216248112',
     projectId: 'dwa2y-3cb9f',
@@ -61,21 +61,23 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBt-jc4Tr6ghPYhazwwTMlK8qou0W-hgK8',
+    apiKey: 'AIzaSyAZ1YKhbZT2hF7pyt5vOytupR8t3zNa_NQ',
     appId: '1:104216248112:ios:d585372d429cada9f6d2f5',
     messagingSenderId: '104216248112',
     projectId: 'dwa2y-3cb9f',
     storageBucket: 'dwa2y-3cb9f.appspot.com',
+    androidClientId: '104216248112-aemfpouq12hfuaerrfdr4o913bsq0g8m.apps.googleusercontent.com',
     iosClientId: '104216248112-9flikiicaclj101hmqt5ealfv1gorsni.apps.googleusercontent.com',
     iosBundleId: 'com.example.dwa2y',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBt-jc4Tr6ghPYhazwwTMlK8qou0W-hgK8',
+    apiKey: 'AIzaSyAZ1YKhbZT2hF7pyt5vOytupR8t3zNa_NQ',
     appId: '1:104216248112:ios:d585372d429cada9f6d2f5',
     messagingSenderId: '104216248112',
     projectId: 'dwa2y-3cb9f',
     storageBucket: 'dwa2y-3cb9f.appspot.com',
+    androidClientId: '104216248112-aemfpouq12hfuaerrfdr4o913bsq0g8m.apps.googleusercontent.com',
     iosClientId: '104216248112-9flikiicaclj101hmqt5ealfv1gorsni.apps.googleusercontent.com',
     iosBundleId: 'com.example.dwa2y',
   );

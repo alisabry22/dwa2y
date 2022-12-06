@@ -5,7 +5,6 @@ import 'package:dwa2y/Widgets/custom_elevated_button.dart';
 import 'package:dwa2y/Widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -110,17 +109,9 @@ class SignInScreen extends GetView<AuthServices> {
                           if (formKey.currentState!.validate()) {
                           
                             var response = await controller.signInMethod();
-                         print(response);
 
-                            if (response is String) {
-                             if (response=='user-not-found') {
-                              Get.snackbar("Email error","no user found for this email ",duration: const Duration(milliseconds: 3),backgroundColor: Colors.green,snackPosition: SnackPosition.BOTTOM);
-                
-                              } else if (response.toString() == 'wrong-password') {
-                                Get.snackbar("password error","wrong password provided for this user  ",duration: const Duration(milliseconds: 3));
-                              }else{
-                                Get.snackbar(response, response.toString(),snackPosition: SnackPosition.BOTTOM,duration: const Duration(milliseconds: 3));
-                              }
+                            if (response=="user-not-found") {
+                         Get.snackbar(response , response.toString().removeAllWhitespace ,snackPosition: SnackPosition.BOTTOM,duration: const Duration(milliseconds: 3));
                             }
                           }
                         },

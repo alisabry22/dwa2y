@@ -92,7 +92,7 @@ class AuthServices extends GetxController {
       email: emailController.value.text.trim(),
       password: passwordController.value.text.trim());
      return true; 
-} on FirebaseAuthException catch (e) {
+} on FirebaseAuthException catch(e) {
 
     return e.code.toString();
 }
