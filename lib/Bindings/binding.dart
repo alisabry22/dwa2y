@@ -11,10 +11,10 @@ class Binding implements Bindings{
   void dependencies() {
     Get.put( AuthServices() );
     Get.put(LocationController());
-    Get.lazyPut(()=> HomeController());
-    Get.lazyPut(()=> BottomNavigationController());
-    Get.lazyPut(()=> MyAccountController());
-    Get.lazyPut(()=> GoogleMapServicers());
+    Get.put( HomeController(),permanent: true);
+    Get.lazyPut(()=> BottomNavigationController(),fenix: true);
+    Get.lazyPut(()=> MyAccountController(),fenix: true);
+    Get.lazyPut(()=> GoogleMapServicers(),fenix: true);
   }
 
 }
