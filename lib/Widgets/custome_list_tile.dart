@@ -27,7 +27,7 @@ class CustomListTile extends StatelessWidget {
       leading:leading,
       title:Text(title,style: GoogleFonts.ubuntu( fontSize: 16, color: Colors.white), ),
       trailing: trailing,
-      subtitle: Text(subtitile,style: GoogleFonts.ubuntu(color:Colors.grey),),
+      subtitle: Text(subtitile,style: GoogleFonts.ubuntu(color:Colors.grey,fontSize: 14),),
     );
   }
 }

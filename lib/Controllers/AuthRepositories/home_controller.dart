@@ -15,10 +15,10 @@ class HomeController extends GetxController {
           type: "",
           countrycode: "",
           profileImageLink: "",
-          lat: "",
-          long: "",
+          lat: 0.0,
+          long: 0.0,
           createdAt: "",
-          updatedAt: "")
+          updatedAt: "",address: "")
       .obs;
   @override
   void onInit() async {

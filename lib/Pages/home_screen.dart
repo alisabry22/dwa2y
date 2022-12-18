@@ -12,6 +12,7 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    print(controller.currentUserData.value.lat);
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -25,17 +26,17 @@ class HomeScreen extends GetView<HomeController> {
                     color: Colors.white));
           },
         ),
-        backgroundColor: Constants().primaryColor.withOpacity(0.6),
+        backgroundColor:  const Color.fromARGB(255, 1, 15, 57),
         elevation: 0,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const  BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Constants().primaryColor.withOpacity(0.6),
-                Constants().primaryColor.withOpacity(0.3),
+                 Color.fromARGB(255, 4, 16, 89),
+                    Color.fromARGB(255, 1, 15, 57),
               ]),
         ),
         child: Align(

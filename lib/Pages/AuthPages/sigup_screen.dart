@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../Widgets/custom_text_field.dart';
 
@@ -155,6 +156,34 @@ class SignUpScreen extends GetView<AuthServices> {
                                 }
                               },
                               controller: controller.emailController.value),
+
+                              const SizedBox(height: 10,),
+                              GetX<AuthServices>(
+                                builder: (controller) {
+                                  return IntlPhoneField(
+                                  controller: controller.phoneController.value,
+                                  initialCountryCode: controller.countrycode.value,
+                                  onCountryChanged: (value) {
+                                    controller.countrycode.value=value.dialCode;
+                                  },
+
+                                  cursorColor: Colors.white,
+                                  decoration:InputDecoration(
+                                    fillColor: Colors.white,
+                                    hintText: "Phone",
+                                    hintStyle: GoogleFonts.roboto(color:Colors.grey),
+                                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+                                    filled: true,
+                                    focusColor: Colors.white,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                              
+                                    ),
+                                  ),
+                                );
+                                },
+                                 
+                              ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -220,10 +249,9 @@ class SignUpScreen extends GetView<AuthServices> {
                               width: width,
                               height: height * 0.4,
                               onPressed: () async {
-                                print(formKey.currentState!.validate());
+                            
                                 if (formKey.currentState!.validate()) {
                                   var response = await controller.signUpWithEmailandPassword();
-                                   print(response);
                                   //sign up
                                   if (response is String) {
                                     Get.snackbar(response, response.toString(),snackPosition: SnackPosition.BOTTOM,duration: const Duration(milliseconds: 3));

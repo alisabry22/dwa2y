@@ -8,6 +8,7 @@ import 'package:dwa2y/Pages/introductionscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,21 +21,20 @@ class AuthServices extends GetxController {
           type: "",
           countrycode: "",
           profileImageLink: "",
-          lat: "",
-          long: "",
+          lat: 0.0,
+          long: 0.0,
           createdAt: "",
-          updatedAt: "")
+          updatedAt: "",address: "")
       .obs;
   RxBool isCustomer = true.obs;
   RxString groupValue = "Customer".obs;
   RxBool isLoading = false.obs;
-
+  RxString address="".obs;
 //TextEditing Controllers for Signup screen
   Rx<TextEditingController> usernameController = TextEditingController().obs;
   Rx<TextEditingController> phoneController = TextEditingController().obs;
   Rx<TextEditingController> passwordController = TextEditingController().obs;
-  Rx<TextEditingController> confirmPasswordController =
-      TextEditingController().obs;
+  Rx<TextEditingController> confirmPasswordController =TextEditingController().obs;
   Rx<TextEditingController> emailController = TextEditingController().obs;
   RxString profileImagePath = "".obs;
   RxString countrycode = "EG".obs;
@@ -87,6 +87,7 @@ class AuthServices extends GetxController {
   }
 
   Future signInMethod() async {
+    showDialog();
     try {
   await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: emailController.value.text.trim(),
@@ -141,9 +142,16 @@ class AuthServices extends GetxController {
   // }
 
   Future saveDataInFirebase(photolink) async {
+
     final userId = FirebaseAuth.instance.currentUser!.uid;
     final usersCollection = FirebaseFirestore.instance.collection("users");
     var locationController = Get.find<LocationController>();
+    print(locationController.lat.toString()+locationController.long.toString());
+       List<Placemark> placemarks=await placemarkFromCoordinates(locationController.lat.value, locationController.long.value);
+      Placemark place=placemarks[0];
+      address.value=place.street!+" "+place.administrativeArea!+" "+place.locality!;
+      print("address ${address.value}");
+      
     UserModel userModel = UserModel(
       username: usernameController.value.text,
       phone: phoneController.value.text,
@@ -154,6 +162,7 @@ class AuthServices extends GetxController {
       long: locationController.long.value,
       createdAt: DateTime.now().toLocal().toString(),
       updatedAt: DateTime.now().toLocal().toString(),
+      address: address.value,
     );
     final jsonMap = userModel.userModelToJson();
 

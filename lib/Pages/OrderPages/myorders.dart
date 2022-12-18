@@ -1,10 +1,11 @@
+import 'package:dwa2y/Controllers/OrderControllers/order_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+
 
 import '../../Constants/constants.dart';
 
-class MyOrders extends StatelessWidget {
+class MyOrders extends GetView<OrderController> {
   const MyOrders({super.key});
 
   @override
@@ -18,8 +19,8 @@ class MyOrders extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Constants().primaryColor.withOpacity(0.6),
-                Constants().primaryColor.withOpacity(0.3),
+                  Color.fromARGB(255, 4, 16, 89),
+                    Color.fromARGB(255, 1, 15, 57),
               ]),
         ),
           child:const Center(child: Text("No Orders untill now")),

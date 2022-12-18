@@ -56,6 +56,8 @@ class PersonalInformation extends StatelessWidget {
                 ),
                 child: GetX<MyAccountController>(
                   builder: (controller) {
+                    print("lat long value");
+                    print(controller.currentUserData.value.lat);
                     return Column(
                       children: [
                         CustomListTile(

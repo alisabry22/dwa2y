@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 class LocationController extends GetxController {
   RxBool hasLocationPermission = false.obs;
 
-  RxString long = "".obs;
-  RxString lat = "".obs;
+  RxDouble long = 0.0.obs;
+  RxDouble lat = 0.0.obs;
   late StreamSubscription<Position> positionSetting;
   @override
   void onInit() {
@@ -61,8 +61,8 @@ class LocationController extends GetxController {
 
   void getLocation() {
     positionSetting = Geolocator.getPositionStream().listen((event) {
-      long.value = event.longitude.toString();
-      lat.value = event.latitude.toString();
+      long.value = event.longitude;
+      lat.value = event.latitude;
     });
   }
 }

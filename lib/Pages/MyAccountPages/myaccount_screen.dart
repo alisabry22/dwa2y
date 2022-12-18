@@ -15,15 +15,17 @@ class MyAccountPage extends GetView<MyAccountController> {
 
   @override
   Widget build(BuildContext context) {
+   // Get.put(MyAccountController());
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: Constants().primaryColor.withOpacity(0.3),
+        backgroundColor: Color.fromARGB(255, 4, 16, 89),
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: GetX<MyAccountController>(
             builder: (controller) {
+
               return CircleAvatar(
                 backgroundImage: controller
                         .currentUserData.value.profileImageLink.isNotEmpty
@@ -57,13 +59,13 @@ class MyAccountPage extends GetView<MyAccountController> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Constants().primaryColor.withOpacity(0.6),
-                Constants().primaryColor.withOpacity(0.3),
+               Color.fromARGB(255, 4, 16, 89),
+                    Color.fromARGB(255, 1, 15, 57),
               ]),
         ),
         child: Padding(
@@ -113,9 +115,14 @@ class MyAccountPage extends GetView<MyAccountController> {
                   const Divider(
                    thickness: 1,
                     ),
-                    CustomListTile(onTap: (){
-                      Get.to(()=>const GoogleMapPage());
-                    }, leading: const Icon(Icons.home,color: Colors.white, ),title: "Billing Address",),
+                    GetX<MyAccountController>(
+                      builder: (controller) {
+                        return  CustomListTile(onTap: (){
+                        Get.to(()=>const GoogleMapPage());
+                      }, leading: const Icon(Icons.home,color: Colors.white, ),title: "Billing Address",subtitile:controller.currentUserData.value.address );
+                      },
+                    
+                    ),
                  const Divider(
                    thickness: 1,
                     ),

@@ -1,28 +1,31 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
 import 'package:dwa2y/Controllers/AuthRepositories/home_controller.dart';
+import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../Models/user_model.dart';
 
 class GoogleMapServicers extends GetxController {
-  Completer<GoogleMapController> controller = Completer();
   Rx<TextEditingController> searchPlace=TextEditingController().obs;
-   late CameraPosition cameraPosition=CameraPosition(
+  RxDouble latitude=0.0.obs;
+  RxDouble longitude=0.0.obs;
+  GoogleMapController? mapController;
+  
+
+   Rx< CameraPosition> cameraPosition=CameraPosition(
         target: LatLng(20.42796133580664,
             75.885749655962),
-        zoom: 14.4746);
-  late List<Marker> markers=[
-          Marker(markerId: MarkerId("1"),
-            position: LatLng(20.42796133580664,75.885749655962),
-            infoWindow: InfoWindow(title: "My Position"),
-          ),
-        ];
+        zoom: 14.4746).obs;
+  RxList <Marker> markers=[  Marker(markerId: MarkerId("1"), position: LatLng(20.42796133580664,75.885749655962),infoWindow: InfoWindow(title: "My Position"),),
+        ].obs;
 
   Rx<UserModel> currentUserData = UserModel(
           username: "",
@@ -30,10 +33,10 @@ class GoogleMapServicers extends GetxController {
           type: "",
           countrycode: "",
           profileImageLink: "",
-          lat: "",
-          long: "",
+          lat: 0.0,
+          long:0.0,
           createdAt: "",
-          updatedAt: "")
+          updatedAt: "",address: "")
       .obs;
 
   RxString currentuserID = "".obs;
@@ -42,12 +45,29 @@ class GoogleMapServicers extends GetxController {
   void onInit()async {
     currentUserData.value=await getInitialData();
     currentUserData.bindStream(getCrruntUserData());
-    print(currentUserData.value.lat+" "+currentUserData.value.long);
-   print(Get.find<HomeController>().currentUserData.value.lat); 
+    // lat.value=double.parse(currentUserData.value.lat) ;
+    // long.value=double.parse(currentUserData.value.long) ;
+    
+
+markers.value.clear();
+cameraPosition.value=CameraPosition(target: LatLng(0.0,0.0));
+print(cameraPosition.value.target);
+cameraPosition.value=CameraPosition(target: LatLng(latitude.value,longitude.value),zoom:14.4746 );
+    
+  cameraPosition.refresh();
+markers.value=[
+  Marker(markerId: MarkerId("1"), position: LatLng(latitude.value,longitude.value),infoWindow: InfoWindow(title: "My Position"),)
+];
+markers.refresh(); 
+
+
+
 
 
     super.onInit();
   }
+  
+  
 
   Future<UserModel> getInitialData()async{
 
@@ -67,7 +87,5 @@ class GoogleMapServicers extends GetxController {
       return UserModel.fromDocumentSnapshot(event);
     });
   }
-  void placeMap(){
 
-  }
 }
