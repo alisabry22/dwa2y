@@ -30,7 +30,6 @@ class GoogleMapPage extends GetView<GoogleMapServicers> {
                 ]),
           ),
           child: Stack(
-<<<<<<< HEAD
             
             children: [
                Positioned(
@@ -75,55 +74,9 @@ class GoogleMapPage extends GetView<GoogleMapServicers> {
                 width: MediaQuery.of(context).size.width*0.8,
 
               )),
-          
-=======
-            children: [
-           
-              GetX<GoogleMapServicers>(
-                builder: (controller) {
-                  return GoogleMap(
-                  initialCameraPosition: controller.cameraPosition,
-                  markers: Set<Marker>.of(controller.markers.value),
-                  mapType: MapType.normal,
-                  myLocationEnabled: true,
-                  onMapCreated: (GoogleMapController cont) {
-                    controller.controller = cont;
-                  },
-                );
-                },
-             
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15,top: 20),
-                child: Positioned(
-                  top: 20,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width*0.8,
-                    child: CustomTextField(
-                    hintText: "place",
-                    obscureValue: false,
-                    suffixIcon: Icon(Icons.search),
-                    validator: (p0) {
-                      
-                    },
-                    controller:controller.searchPlace.value,
-                                ),
-                  ),
-                
-                ),
-              ),
-              
-            
-              Positioned(
-                bottom: 0,
-                
-                  child: CustomElevatedButton(
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      onPressed: () {},
-                      text: "Update Address",
-                      width: MediaQuery.of(context).size.width * 0.8))
->>>>>>> 8e4e7de5e95a49a25ad084da6a64a20ce88762d6
             ],
+
+       
         
           ),
         ),

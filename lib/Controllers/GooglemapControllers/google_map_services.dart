@@ -1,12 +1,10 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-<<<<<<< HEAD
 import 'package:dwa2y/Controllers/AuthRepositories/home_controller.dart';
 import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
 
-=======
->>>>>>> 8e4e7de5e95a49a25ad084da6a64a20ce88762d6
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
