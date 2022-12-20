@@ -30,54 +30,39 @@ class GoogleMapPage extends GetView<GoogleMapServicers> {
                 ]),
           ),
           child: Stack(
-            
             children: [
-               Positioned(
-                top: 20,
-                child: CustomTextField(
-                  controller: controller.searchPlace.value,
-                  hintText: "Search Place",
-                  obscureValue: false,
-                  suffixIcon: Icon(Icons.search),
-                  validator: (p0) {
-                    
-                  },
-
-              )),
+            
               GetX<GoogleMapServicers>(
                 builder: (controller) {
-                  print(controller.cameraPosition.value.target.toString()+"initial");
                   return GoogleMap(
-                  initialCameraPosition: controller.cameraPosition.value,
-                  
-                  markers: Set<Marker>.of(controller.markers),
-                  mapType: MapType.normal,
-                  myLocationEnabled: true,
-                  onMapCreated: (GoogleMapController cont) {
-                    controller.mapController=cont;
-                
-                  },
-                );
+                    initialCameraPosition: controller.cameraPosition.value,
+                    markers: Set<Marker>.of(controller.markers),
+                    mapType: MapType.normal,
+                    myLocationEnabled: true,
+                    onMapCreated: (GoogleMapController cont) {
+                      controller.mapController = cont;
+                      controller.updateCameraPosition();
+                    },
+                  );
                 },
-                
               ),
-
-             
+                Positioned(
+                  top: 20,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: TextField(
+                      decoration: InputDecoration(fillColor: Colors.white),
+                    ),
+                  )),
               Positioned(
-                bottom: 10,
-                child: CustomElevatedButton(
-                onPressed: (){
-
-                },
-                text: "Update address",
-                height: MediaQuery.of(context).size.height*0.1,
-                width: MediaQuery.of(context).size.width*0.8,
-
-              )),
+                  bottom: 10,
+                  child: CustomElevatedButton(
+                    onPressed: () {},
+                    text: "Update address",
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                  )),
             ],
-
-       
-        
           ),
         ),
       ),

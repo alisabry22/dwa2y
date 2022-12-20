@@ -1,14 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dwa2y/Controllers/AuthRepositories/home_controller.dart';
-import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -24,7 +19,7 @@ class GoogleMapServicers extends GetxController {
    Rx< CameraPosition> cameraPosition=CameraPosition(
         target: LatLng(20.42796133580664,
             75.885749655962),
-        zoom: 14.4746).obs;
+        zoom: 40.4746).obs;
   RxList <Marker> markers=[  Marker(markerId: MarkerId("1"), position: LatLng(20.42796133580664,75.885749655962),infoWindow: InfoWindow(title: "My Position"),),
         ].obs;
 
@@ -46,20 +41,23 @@ class GoogleMapServicers extends GetxController {
   void onInit()async {
     currentUserData.value=await getInitialData();
     currentUserData.bindStream(getCrruntUserData());
-    // lat.value=double.parse(currentUserData.value.lat) ;
-    // long.value=double.parse(currentUserData.value.long) ;
+   
+   latitude.value=currentUserData.value.lat;
+   longitude.value=currentUserData.value.long;
     
 
 markers.value.clear();
-cameraPosition.value=CameraPosition(target: LatLng(0.0,0.0));
+
 print(cameraPosition.value.target);
-cameraPosition.value=CameraPosition(target: LatLng(latitude.value,longitude.value),zoom:14.4746 );
+cameraPosition.value=CameraPosition(target: LatLng(latitude.value,longitude.value),zoom:40.4746 );
     
   cameraPosition.refresh();
+  log(latitude.value.toString()+longitude.value.toString());
 markers.value=[
   Marker(markerId: MarkerId("1"), position: LatLng(latitude.value,longitude.value),infoWindow: InfoWindow(title: "My Position"),)
 ];
 markers.refresh(); 
+print(markers.first);
 
 
 
@@ -88,6 +86,13 @@ markers.refresh();
         .map((event) {
       return UserModel.fromDocumentSnapshot(event);
     });
+  }
+
+  updateCameraPosition()async{
+
+    cameraPosition.value=CameraPosition(target: LatLng(latitude.value,longitude.value));
+   await mapController!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition.value));
+    
   }
 }
 
