@@ -12,34 +12,23 @@ class MyAccountController extends GetxController{
 RxString currentUserID="".obs;
 late StreamSubscription streamsub;
 Rx<TextEditingController> searchPlace=TextEditingController().obs;
+Rx<TextEditingController>usernameController=TextEditingController().obs;
 
 
-  Rx<UserModel> currentUserData= UserModel(
-          username: "",
-          phone: "",
-          type: "",
-          countrycode: "",
-          profileImageLink: "",
-          lat: 0.0,
-          long: 0.0,
-          createdAt: "",
-          updatedAt: "",
-          address: "")
-     .obs;
+  Rx<UserModel> currentUserData= UserModel(lat: 0.0,long: 0.0,).obs;
  late SharedPreferences sharedPreferences;
  RxString currentuserID="".obs;
 
   @override
   void onInit()async {
     
-  print("my account controller");
+
      sharedPreferences=await SharedPreferences.getInstance();
    
       currentUserData.bindStream(_getCrruntUserData());
       currentUserData.refresh();
   
 
-     print(currentUserData.value.countrycode);
      
      
      
@@ -60,6 +49,37 @@ Rx<TextEditingController> searchPlace=TextEditingController().obs;
             return UserModel.fromDocumentSnapshot(event);
           });
       }
+
+  Future updateBirthDay(String birthDay)async{
+
+    await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+
+      "birthday":birthDay
+    });
+  }
+
+  Future updateType(String gender)async{
+
+    await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+
+      "gender":gender
+    });
+  }
+   Future updateUserName(String username)async{
+
+    await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+
+      "gender":username
+    });
+  }
+
+     Future updateEmail(String email)async{
+
+    await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
+
+      "email":email
+    });
+  }
 
 
         

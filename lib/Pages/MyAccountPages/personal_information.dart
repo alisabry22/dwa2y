@@ -1,7 +1,10 @@
 import 'package:dwa2y/Controllers/MyAccountServices/myaccount_controller.dart';
 import 'package:dwa2y/Pages/GoogleMapPages/googlemap_page.dart';
+import 'package:dwa2y/Widgets/custom_elevated_button.dart';
+import 'package:dwa2y/Widgets/custom_text_field.dart';
 import 'package:dwa2y/Widgets/custome_list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,26 +59,63 @@ class PersonalInformation extends StatelessWidget {
                 ),
                 child: GetX<MyAccountController>(
                   builder: (controller) {
-                    print("lat long value");
-                    print(controller.currentUserData.value.lat);
                     return Column(
                       children: [
                         CustomListTile(
                           title: "Name",
-                          onTap: () {},
-                          subtitile: controller.currentUserData.value.username,
-                        ),
-                         CustomListTile(
-                          title: "Edit Location",
                           onTap: () {
-                            Get.to(()=>const GoogleMapPage());
-                          },
-                          
+                            
+                            Get.defaultDialog(
+                              confirm:CustomElevatedButton(width: 120, height: 60, onPressed: ()async{
+
+                                await controller.updateUserName(controller.usernameController.value.text.trim());
+                              }, text: "Confirm"),
+                              cancel: CustomElevatedButton(width: 120, height: 60, onPressed: (){
+                                Get.back();
+                              }, text: "Cancel"),
+                              
+                              content: CustomTextField(hintText: "username", validator: (p0){}, controller: controller.usernameController.value),
+                            );
+                              },
+                    
+                        
+                          subtitile: controller.currentUserData.value.username!,
                         ),
-                         CustomListTile(
-                          title: "Name",
+                        CustomListTile(
+                          title: "Email",
+                          subtitile:
+                              controller.currentUserData.value.email != null &&
+                                      controller.currentUserData.value.email!
+                                          .isNotEmpty
+                                  ? controller.currentUserData.value.email!
+                                  : "Tap to Set",
+                          onTap: () {
+                            Get.to(() => const GoogleMapPage());
+                          },
+                        ),
+                        CustomListTile(
+                          title: "Gender",
                           onTap: () {},
-                          subtitile: controller.currentUserData.value.username,
+                          subtitile: controller.currentUserData.value.username!,
+                        ),
+                        CustomListTile(
+                          title: "Birthday",
+                          onTap: () {
+                            DatePicker.showDatePicker(context,
+                                onConfirm: (time) async {
+                              await controller.updateBirthDay(time.toString());
+                            },
+                                currentTime: DateTime.now(),
+                                locale: LocaleType.en);
+                          },
+                          subtitile:
+                              controller.currentUserData.value.birthday !=
+                                          null &&
+                                      controller.currentUserData.value.birthday!
+                                          .isNotEmpty
+                                  ? controller.currentUserData.value.birthday!
+                                      .substring(0, 10)
+                                  : "Tap to set",
                         ),
                       ],
                     );

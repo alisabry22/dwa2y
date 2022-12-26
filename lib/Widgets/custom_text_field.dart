@@ -9,6 +9,7 @@ String? Function(String?)? validator;
 TextEditingController controller;
 Widget? suffixIcon;
 bool obscureValue;
+Function(String)? onchanged;
 
    CustomTextField({super.key, 
     required this.hintText,
@@ -16,6 +17,7 @@ bool obscureValue;
     required this.controller,
     this.suffixIcon,
     this.obscureValue=false,
+    this.onchanged,
   });
    
 
@@ -23,6 +25,7 @@ bool obscureValue;
   Widget build(BuildContext context) {
     return TextFormField(
       controller:controller ,
+      onChanged:onchanged ,
       validator:validator ,
       obscureText: obscureValue,
       decoration: InputDecoration(

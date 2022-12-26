@@ -2,27 +2,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  String username,
-      phone,
-      type,
-      countrycode,
-      profileImageLink,
-    
-      createdAt,
-      updatedAt,address;
-      double lat,long;
+  String? username, phone,type, countrycode, profileImageLink, createdAt,updatedAt,address,gender,birthday,email;
+double lat,long;
 
   UserModel({
-    required this.username,
-    required this.phone,
-    required this.type,
-    required this.countrycode,
-    required this.profileImageLink,
-    required this.lat,
-    required this.long,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.address,
+  required this.lat,
+   required  this.long,
+     this.username,
+     this.phone,
+     this.type,
+     this.countrycode,
+     this.profileImageLink,
+     this.gender,
+     this.birthday,
+     this.email,
+
+     this.createdAt,
+     this.updatedAt,
+     this.address,
   });
   factory UserModel.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
     return UserModel(
@@ -36,6 +33,9 @@ class UserModel {
       countrycode: documentSnapshot.data()!["countryCode"]??"",
       type: documentSnapshot.data()!["type"]??"",
       address: documentSnapshot.data()!["address"]??"",
+      birthday: documentSnapshot.data()!["birthday"]??"",
+      gender: documentSnapshot.data()!["gender"]??"",
+      email: documentSnapshot.data()!["email"]??"",
           );
   }
 

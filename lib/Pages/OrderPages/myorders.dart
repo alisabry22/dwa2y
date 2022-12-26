@@ -1,9 +1,9 @@
 import 'package:dwa2y/Controllers/OrderControllers/order_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
-import '../../Constants/constants.dart';
 
 class MyOrders extends GetView<OrderController> {
   const MyOrders({super.key});
@@ -14,7 +14,7 @@ class MyOrders extends GetView<OrderController> {
      
      backgroundColor: Colors.transparent,
      body: Container(
-       decoration: BoxDecoration(
+       decoration:const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -23,7 +23,7 @@ class MyOrders extends GetView<OrderController> {
                     Color.fromARGB(255, 1, 15, 57),
               ]),
         ),
-          child:const Center(child: Text("No Orders untill now")),
+          child: Center(child: Text("No Orders untill now",style: GoogleFonts.roboto(color: Colors.white),)),
      ),
     );
   }
