@@ -64,21 +64,31 @@ class PersonalInformation extends StatelessWidget {
                         CustomListTile(
                           title: "Name",
                           onTap: () {
-                            
                             Get.defaultDialog(
-                              confirm:CustomElevatedButton(width: 120, height: 60, onPressed: ()async{
-
-                                await controller.updateUserName(controller.usernameController.value.text.trim());
-                              }, text: "Confirm"),
-                              cancel: CustomElevatedButton(width: 120, height: 60, onPressed: (){
-                                Get.back();
-                              }, text: "Cancel"),
-                              
-                              content: CustomTextField(hintText: "username", validator: (p0){}, controller: controller.usernameController.value),
+                              confirm: CustomElevatedButton(
+                                  width: 120,
+                                  height: 60,
+                                  onPressed: () async {
+                                    await controller.updateUserName(controller
+                                        .usernameController.value.text
+                                        .trim());
+                                    Get.back();
+                                  },
+                                  text: "Confirm"),
+                              cancel: CustomElevatedButton(
+                                  width: 120,
+                                  height: 60,
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  text: "Cancel"),
+                              content: CustomTextField(
+                                  hintText: "username",
+                                  validator: (p0) {},
+                                  controller:
+                                      controller.usernameController.value),
                             );
-                              },
-                    
-                        
+                          },
                           subtitile: controller.currentUserData.value.username!,
                         ),
                         CustomListTile(
@@ -90,22 +100,91 @@ class PersonalInformation extends StatelessWidget {
                                   ? controller.currentUserData.value.email!
                                   : "Tap to Set",
                           onTap: () {
-                            Get.to(() => const GoogleMapPage());
+                            Get.defaultDialog(
+                              confirm: CustomElevatedButton(
+                                  width: 120,
+                                  height: 60,
+                                  onPressed: () async {
+                                    await controller.updateEmail(controller
+                                        .emailController.value.text
+                                        .trim());
+                                    Get.back();
+                                  },
+                                  text: "Confirm"),
+                              cancel: CustomElevatedButton(
+                                  width: 120,
+                                  height: 60,
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  text: "Cancel"),
+                              content: CustomTextField(
+                                  hintText: "Email",
+                                  validator: (p0) {},
+                                  controller: controller.emailController.value),
+                            );
                           },
                         ),
                         CustomListTile(
                           title: "Gender",
-                          onTap: () {},
-                          subtitile: controller.currentUserData.value.username!,
+                          onTap: () {
+                            Get.defaultDialog(
+                              confirm: CustomElevatedButton(
+                                  width: 120,
+                                  height: 60,
+                                  onPressed: () async {
+                                    Get.back();
+                                  },
+                                  text: "Confirm"),
+                              cancel: CustomElevatedButton(
+                                  width: 120,
+                                  height: 60,
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  text: "Cancel"),
+                              content: Row(
+                                children: [
+                                  Radio(
+                                    
+                                      value: "Male",
+                                      groupValue: controller.groupvalue.value,
+                                      onChanged: (val) {
+                                        controller.groupvalue.value =
+                                            val.toString();
+                                      }),
+                                  Radio(
+                                      value: "Female",
+                                      groupValue: controller.groupvalue.value,
+                                      onChanged: (val) {
+                                        controller.groupvalue.value =
+                                            val.toString();
+                                      }),
+                                ],
+                              ),
+                            );
+                          },
+                          subtitile:
+                              controller.currentUserData.value.gender != null
+                                  ? controller.currentUserData.value.gender!
+                                  : "Tap To Set",
                         ),
                         CustomListTile(
                           title: "Birthday",
                           onTap: () {
-                            DatePicker.showDatePicker(context,
-                                onConfirm: (time) async {
+                            DatePicker.showDatePicker(context, onConfirm:
+                                    (time) async {
                               await controller.updateBirthDay(time.toString());
                             },
-                                currentTime: DateTime.now(),
+                                currentTime:
+                                    controller.currentUserData.value.birthday !=
+                                                null &&
+                                            controller.currentUserData.value
+                                                    .birthday !=
+                                                null
+                                        ? DateTime.parse(controller
+                                            .currentUserData.value.birthday!)
+                                        : DateTime.now(),
                                 locale: LocaleType.en);
                           },
                           subtitile:

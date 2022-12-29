@@ -13,6 +13,8 @@ RxString currentUserID="".obs;
 late StreamSubscription streamsub;
 Rx<TextEditingController> searchPlace=TextEditingController().obs;
 Rx<TextEditingController>usernameController=TextEditingController().obs;
+Rx<TextEditingController>emailController=TextEditingController().obs;
+RxString groupvalue="Male".obs;
 
 
   Rx<UserModel> currentUserData= UserModel(lat: 0.0,long: 0.0,).obs;
@@ -69,7 +71,7 @@ Rx<TextEditingController>usernameController=TextEditingController().obs;
 
     await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update({
 
-      "gender":username
+      "username":username
     });
   }
 

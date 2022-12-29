@@ -27,6 +27,7 @@ class MyAccountPage extends GetView<MyAccountController> {
 
               return CircleAvatar(
                 backgroundImage: controller
+                        .currentUserData.value.profileImageLink!=null &&controller
                         .currentUserData.value.profileImageLink!.isNotEmpty
                     ? CachedNetworkImageProvider(
                             controller.currentUserData.value.profileImageLink!)
@@ -43,7 +44,7 @@ class MyAccountPage extends GetView<MyAccountController> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(controller.currentUserData.value.username!,
+                Text(controller.currentUserData.value.username!=null?controller.currentUserData.value.username!:"username",
                     style: GoogleFonts.ubuntu(
                         fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(
@@ -96,7 +97,7 @@ class MyAccountPage extends GetView<MyAccountController> {
                         Constants().primaryColor.withOpacity(0.3),
                       ]),
                 ),
-                child:  Expanded(
+                child:  SingleChildScrollView(
                   child: Column(
                     
                     children: [
@@ -119,7 +120,7 @@ class MyAccountPage extends GetView<MyAccountController> {
                         builder: (controller) {
                           return  CustomListTile(onTap: (){
                           Get.to(()=>const GoogleMapPage());
-                        }, leading: const Icon(Icons.home,color: Colors.white, ),title: "Billing Address",subtitile:controller.currentUserData.value.address! );
+                        }, leading: const Icon(Icons.home,color: Colors.white, ),title: "Billing Address",subtitile:controller.currentUserData.value.address!=null?controller.currentUserData.value.address!:"" );
                         },
                       
                       ),
