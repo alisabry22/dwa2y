@@ -1,5 +1,6 @@
 import 'package:dwa2y/Controllers/MyAccountServices/myaccount_controller.dart';
 import 'package:dwa2y/Pages/GoogleMapPages/googlemap_page.dart';
+import 'package:dwa2y/Pages/MyAccountPages/gender_screen.dart';
 import 'package:dwa2y/Widgets/custom_elevated_button.dart';
 import 'package:dwa2y/Widgets/custom_text_field.dart';
 import 'package:dwa2y/Widgets/custome_list_tile.dart';
@@ -126,43 +127,10 @@ class PersonalInformation extends StatelessWidget {
                           },
                         ),
                         CustomListTile(
+
                           title: "Gender",
                           onTap: () {
-                            Get.defaultDialog(
-                              confirm: CustomElevatedButton(
-                                  width: 120,
-                                  height: 60,
-                                  onPressed: () async {
-                                    Get.back();
-                                  },
-                                  text: "Confirm"),
-                              cancel: CustomElevatedButton(
-                                  width: 120,
-                                  height: 60,
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                  text: "Cancel"),
-                              content: Row(
-                                children: [
-                                  Radio(
-                                    
-                                      value: "Male",
-                                      groupValue: controller.groupvalue.value,
-                                      onChanged: (val) {
-                                        controller.groupvalue.value =
-                                            val.toString();
-                                      }),
-                                  Radio(
-                                      value: "Female",
-                                      groupValue: controller.groupvalue.value,
-                                      onChanged: (val) {
-                                        controller.groupvalue.value =
-                                            val.toString();
-                                      }),
-                                ],
-                              ),
-                            );
+                           Get.to(()=>const GenderScreen());
                           },
                           subtitile:
                               controller.currentUserData.value.gender != null
