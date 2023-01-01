@@ -1,5 +1,4 @@
 import 'package:dwa2y/Controllers/MyAccountServices/myaccount_controller.dart';
-import 'package:dwa2y/Pages/GoogleMapPages/googlemap_page.dart';
 import 'package:dwa2y/Pages/MyAccountPages/gender_screen.dart';
 import 'package:dwa2y/Widgets/custom_elevated_button.dart';
 import 'package:dwa2y/Widgets/custom_text_field.dart';
@@ -24,19 +23,19 @@ class PersonalInformation extends StatelessWidget {
           "Personal Information",
           style: GoogleFonts.roboto(color: Colors.white, fontSize: 16),
         ),
-        backgroundColor: Constants().primaryColor.withOpacity(0.3),
+        backgroundColor: const Color.fromARGB(255, 4, 16, 89),
         elevation: 0,
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
+        decoration:const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Constants().primaryColor.withOpacity(0.6),
-                Constants().primaryColor.withOpacity(0.3),
+               Color.fromARGB(255, 4, 16, 89),
+                    Color.fromARGB(255, 1, 15, 57),
               ]),
         ),
         child: Padding(
@@ -70,9 +69,7 @@ class PersonalInformation extends StatelessWidget {
                                   width: 120,
                                   height: 60,
                                   onPressed: () async {
-                                    await controller.updateUserName(controller
-                                        .usernameController.value.text
-                                        .trim());
+                                    await controller.updateUserName(controller.usernameController.value.text.trim());
                                     Get.back();
                                   },
                                   text: "Confirm"),
