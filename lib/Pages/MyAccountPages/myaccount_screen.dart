@@ -3,6 +3,7 @@ import 'package:dwa2y/Constants/constants.dart';
 import 'package:dwa2y/Controllers/MyAccountServices/myaccount_controller.dart';
 import 'package:dwa2y/Pages/AuthPages/logout_page.dart';
 import 'package:dwa2y/Pages/GoogleMapPages/googlemap_page.dart';
+import 'package:dwa2y/Pages/MyAccountPages/account_setting.dart';
 import 'package:dwa2y/Pages/MyAccountPages/personal_information.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -108,7 +109,9 @@ class MyAccountPage extends GetView<MyAccountController> {
                       Get.to(()=>const PersonalInformation());
                      }, leading: const Icon(Icons.person,color: Colors.white, ),title: "Personal Information",),
                      
-                    CustomListTile(onTap: (){}, leading: const Icon(Icons.settings,color: Colors.white, ),title: "Account Setting",),
+                    CustomListTile(onTap: (){
+                      Get.to(()=>const AccountSetting());
+                    }, leading: const Icon(Icons.settings,color: Colors.white, ),title: "Account Setting",),
                      const Divider(
                      thickness: 1,
                       ),
