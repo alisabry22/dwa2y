@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dwa2y/Constants/constants.dart';
 import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
-import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
 import 'package:dwa2y/Widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,11 +14,12 @@ import '../../Widgets/custom_text_field.dart';
 class SignUpScreen extends GetView<AuthServices> {
    final formKey = GlobalKey<FormState>();
 
+  SignUpScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {
-    print(Get.find<LocationController>().long.value +
-        Get.find<LocationController>().lat.value);
+
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
@@ -154,6 +154,7 @@ class SignUpScreen extends GetView<AuthServices> {
                                 if(value==null|| value.isEmpty ){
                                       return "please enter Email";
                                 }
+                                return null;
                               },
                               controller: controller.emailController.value),
 

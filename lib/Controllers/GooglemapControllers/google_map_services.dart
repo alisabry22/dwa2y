@@ -24,11 +24,11 @@ class GoogleMapServicers extends GetxController {
 
 
 
-  Rx<CameraPosition> cameraPosition = CameraPosition(
+  Rx<CameraPosition> cameraPosition = const CameraPosition(
           target: LatLng(20.42796133580664, 75.885749655962), zoom: 14.402209281921387)
       .obs;
   RxList<Marker> markers = [
-    Marker(
+   const Marker(
       markerId: MarkerId("1"),
       position: LatLng(20.42796133580664, 75.885749655962),
       infoWindow: InfoWindow(title: "My Position"),

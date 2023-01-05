@@ -1,9 +1,7 @@
 import 'package:dwa2y/Controllers/GooglemapControllers/google_map_services.dart';
-import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
 import 'package:dwa2y/Widgets/custom_elevated_button.dart';
 import 'package:dwa2y/Widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -63,7 +61,9 @@ class GoogleMapPage extends GetView<GoogleMapServicers> {
                             onchanged: (p0) {
                               controller.updateLocation(p0);
                             },
-                            validator: (p0) {},
+                            validator: (p0) {
+                              return null;
+                            },
                             obscureValue: false,
                             suffixIcon: const Icon(Icons.search),
                           );

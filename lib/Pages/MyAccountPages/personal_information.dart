@@ -1,5 +1,4 @@
 import 'package:dwa2y/Controllers/MyAccountServices/myaccount_controller.dart';
-import 'package:dwa2y/Pages/GoogleMapPages/googlemap_page.dart';
 import 'package:dwa2y/Pages/MyAccountPages/gender_screen.dart';
 import 'package:dwa2y/Widgets/custom_elevated_button.dart';
 import 'package:dwa2y/Widgets/custom_text_field.dart';
@@ -85,7 +84,9 @@ class PersonalInformation extends StatelessWidget {
                                   text: "Cancel"),
                               content: CustomTextField(
                                   hintText: "username",
-                                  validator: (p0) {},
+                                  validator: (p0) {
+                                    return null;
+                                  },
                                   controller:
                                       controller.usernameController.value),
                             );
@@ -121,7 +122,9 @@ class PersonalInformation extends StatelessWidget {
                                   text: "Cancel"),
                               content: CustomTextField(
                                   hintText: "Email",
-                                  validator: (p0) {},
+                                  validator: (p0) {
+                                    return null;
+                                  },
                                   controller: controller.emailController.value),
                             );
                           },

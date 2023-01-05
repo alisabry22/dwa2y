@@ -30,7 +30,6 @@ class HomeController extends GetxController {
   }
 
   Stream<UserModel> _getCurrentUserData() {
-    print("home stream");
 
     final usersCollection = FirebaseFirestore.instance.collection("users");
 

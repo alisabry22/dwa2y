@@ -11,6 +11,8 @@ import 'package:google_fonts/google_fonts.dart';
 class SignInScreen extends GetView<AuthServices> {
   final formKey = GlobalKey<FormState>();
 
+  SignInScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -84,7 +86,7 @@ class SignInScreen extends GetView<AuthServices> {
                                   return null;
                         },
                         controller: controller.passwordController.value,
-                        suffixIcon: Icon(Icons.lock),
+                        suffixIcon: const Icon(Icons.lock),
                       )),
                       Align(
                         alignment: Alignment.centerRight,

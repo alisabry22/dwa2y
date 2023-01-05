@@ -1,18 +1,18 @@
 import 'package:dwa2y/Controllers/AuthRepositories/home_controller.dart';
+import 'package:dwa2y/Pages/nearby_pharmacies.dart';
+import 'package:dwa2y/Pages/upload_prescription.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-import '../Constants/constants.dart';
 
 class HomeScreen extends GetView<HomeController> {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    print(controller.currentUserData.value.lat);
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
@@ -55,23 +55,28 @@ class HomeScreen extends GetView<HomeController> {
                     Color.fromARGB(255, 1, 15, 57),
                   ]),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const CircleAvatar(
-                      backgroundImage: AssetImage("assets/images/prescriptionIcon.png"),
-                      radius: 30,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      "Upload Prescription",
-                      style:
-                          GoogleFonts.roboto(color: Colors.white, fontSize: 16),
-                    )
-                  ],
+                child: InkWell(
+                  onTap: (){
+                    Get.to(()=>const UploadPrescription());
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const CircleAvatar(
+                        backgroundImage: AssetImage("assets/images/prescriptionIcon.png"),
+                        radius: 30,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "Upload Prescription",
+                        style:
+                            GoogleFonts.roboto(color: Colors.white, fontSize: 16),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Container(
@@ -110,23 +115,29 @@ class HomeScreen extends GetView<HomeController> {
                     Color.fromARGB(255, 1, 15, 57),
                   ]),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const CircleAvatar(
-                      backgroundImage: AssetImage("assets/images/pharmacyPlace.png"),
-                      radius: 30,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      " Nearby Pharmacies",
-                      style:
-                          GoogleFonts.roboto(color: Colors.white, fontSize: 16),
-                    )
-                  ],
+                child: InkWell(
+                  onTap: (){
+
+                    Get.to(()=>const NearbyPharmacies());
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const CircleAvatar(
+                        backgroundImage: AssetImage("assets/images/pharmacyPlace.png"),
+                        radius: 30,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        " Nearby Pharmacies",
+                        style:
+                            GoogleFonts.roboto(color: Colors.white, fontSize: 16),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Container(

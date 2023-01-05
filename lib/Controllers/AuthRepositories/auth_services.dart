@@ -4,7 +4,6 @@ import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
 import 'package:dwa2y/Models/user_model.dart';
 import 'package:dwa2y/Pages/AuthPages/signin_screen.dart';
 import 'package:dwa2y/Pages/dashboard_page.dart';
-import 'package:dwa2y/Pages/introductionscreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -146,11 +145,9 @@ class AuthServices extends GetxController {
     final userId = FirebaseAuth.instance.currentUser!.uid;
     final usersCollection = FirebaseFirestore.instance.collection("users");
     var locationController = Get.find<LocationController>();
-    print(locationController.lat.toString()+locationController.long.toString());
        List<Placemark> placemarks=await placemarkFromCoordinates(locationController.lat.value, locationController.long.value);
       Placemark place=placemarks[0];
-      address.value=place.street!+" "+place.administrativeArea!+" "+place.locality!;
-      print("address ${address.value}");
+      address.value="${place.street!} ${place.administrativeArea!} ${place.locality!}";
       
     UserModel userModel = UserModel(
       username: usernameController.value.text,
