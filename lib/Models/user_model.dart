@@ -1,9 +1,11 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dwa2y/Models/Address.dart';
 
 class UserModel {
-  String? username, phone,type, countrycode, profileImageLink, createdAt,updatedAt,address,gender,birthday,email;
+  String? username, phone,type, countrycode, profileImageLink, createdAt,updatedAt,gender,birthday,email;
 double lat,long;
+List<Address>? addresses;
 
   UserModel({
   required this.lat,
@@ -19,7 +21,7 @@ double lat,long;
 
      this.createdAt,
      this.updatedAt,
-     this.address,
+     this.addresses,
   });
   factory UserModel.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
     return UserModel(
@@ -32,7 +34,7 @@ double lat,long;
       long: documentSnapshot.data()!["long"]??0.0,
       countrycode: documentSnapshot.data()!["countryCode"]??"",
       type: documentSnapshot.data()!["type"]??"",
-      address: documentSnapshot.data()!["address"]??"",
+      addresses: documentSnapshot.data()!["address"]!=null?documentSnapshot.get("address").map<Address>((m)=>Address.fromJson(m)).toList():<Address>[],
       birthday: documentSnapshot.data()!["birthday"]??"",
       gender: documentSnapshot.data()!["gender"]??"",
       email: documentSnapshot.data()!["email"]??"",
@@ -49,6 +51,6 @@ double lat,long;
         "long": long,
         "createdAt": createdAt,
         "updatedAt": updatedAt,
-        "address":address,
+        "address":addresses,
       };
 }

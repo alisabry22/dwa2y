@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dwa2y/Constants/constants.dart';
 import 'package:dwa2y/Controllers/MyAccountServices/myaccount_controller.dart';
 import 'package:dwa2y/Pages/AuthPages/logout_page.dart';
-import 'package:dwa2y/Pages/GoogleMapPages/googlemap_page.dart';
 import 'package:dwa2y/Pages/MyAccountPages/account_setting.dart';
+import 'package:dwa2y/Pages/MyAccountPages/my_addresses.dart';
 import 'package:dwa2y/Pages/MyAccountPages/personal_information.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -108,7 +108,9 @@ class MyAccountPage extends GetView<MyAccountController> {
                       onTap: (){
                       Get.to(()=>const PersonalInformation());
                      }, leading: const Icon(Icons.person,color: Colors.white, ),title: "Personal Information",),
-                     
+                     const Divider(
+                     thickness: 1,
+                      ),
                     CustomListTile(onTap: (){
                       Get.to(()=>const AccountSetting());
                     }, leading: const Icon(Icons.settings,color: Colors.white, ),title: "Account Setting",),
@@ -122,8 +124,8 @@ class MyAccountPage extends GetView<MyAccountController> {
                       GetX<MyAccountController>(
                         builder: (controller) {
                           return  CustomListTile(onTap: (){
-                          Get.to(()=>const GoogleMapPage());
-                        }, leading: const Icon(Icons.home,color: Colors.white, ),title: "Billing Address",subtitile:controller.currentUserData.value.address!=null?controller.currentUserData.value.address!:"" );
+                          Get.to(()=>const MyAddresses());
+                        }, leading: const Icon(Icons.home,color: Colors.white, ),title: "Billing Address",subtitile:controller.currentUserData.value.addresses!=null&& controller.currentUserData.value.addresses!  .isNotEmpty ?controller.currentUserData.value.addresses![0].streetName!:"" );
                         },
                       
                       ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
+import 'package:dwa2y/Models/Address.dart';
 import 'package:dwa2y/Models/user_model.dart';
 import 'package:dwa2y/Pages/AuthPages/signin_screen.dart';
 import 'package:dwa2y/Pages/dashboard_page.dart';
@@ -14,21 +15,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthServices extends GetxController {
   late Rx<User?> currentuser;
-  Rx<UserModel> usermodel = UserModel(
-          username: "",
-          phone: "",
-          type: "",
-          countrycode: "",
-          profileImageLink: "",
-          lat: 0.0,
-          long: 0.0,
-          createdAt: "",
-          updatedAt: "",address: "")
-      .obs;
+  Rx<UserModel> usermodel = UserModel(lat: 0.0, long: 0.0,).obs;
+  Rx<UserModel> currentUserData= UserModel(lat: 0.0,long: 0.0,).obs;
   RxBool isCustomer = true.obs;
   RxString groupValue = "Customer".obs;
   RxBool isLoading = false.obs;
-  RxString address="".obs;
+  RxList<Address> addresses=RxList.empty();
 //TextEditing Controllers for Signup screen
   Rx<TextEditingController> usernameController = TextEditingController().obs;
   Rx<TextEditingController> phoneController = TextEditingController().obs;
@@ -46,6 +38,8 @@ class AuthServices extends GetxController {
   void onInit() async {
     currentuser = Rx<User?>(FirebaseAuth.instance.currentUser);
     currentuser.bindStream(FirebaseAuth.instance.authStateChanges());
+         currentUserData.bindStream(_getCrruntUserData());
+      currentUserData.refresh();
     ever(currentuser, _setInitialScreen);
     sharedprefs = await SharedPreferences.getInstance();
 
@@ -147,7 +141,7 @@ class AuthServices extends GetxController {
     var locationController = Get.find<LocationController>();
        List<Placemark> placemarks=await placemarkFromCoordinates(locationController.lat.value, locationController.long.value);
       Placemark place=placemarks[0];
-      address.value="${place.street!} ${place.administrativeArea!} ${place.locality!}";
+     // address.value="${place.street!} ${place.administrativeArea!} ${place.locality!}";
       
     UserModel userModel = UserModel(
       username: usernameController.value.text,
@@ -159,7 +153,7 @@ class AuthServices extends GetxController {
       long: locationController.long.value,
       createdAt: DateTime.now().toLocal().toString(),
       updatedAt: DateTime.now().toLocal().toString(),
-      address: address.value,
+      addresses: addresses,
     );
     final jsonMap = userModel.userModelToJson();
 
@@ -205,4 +199,11 @@ class AuthServices extends GetxController {
     await FirebaseAuth.instance.signOut();
      
   }
+  Stream<UserModel> _getCrruntUserData(){
+
+           return FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots().map((event) {
+          
+            return UserModel.fromDocumentSnapshot(event);
+          });
+      }
 }

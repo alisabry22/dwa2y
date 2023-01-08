@@ -9,16 +9,8 @@ class HomeController extends GetxController {
 
   late SharedPreferences sharedprefs;
   String? sharedPrefCurrentUser;
-   Rx<UserModel> currentUserData = UserModel(
-          username: "",
-          phone: "",
-          type: "",
-          countrycode: "",
-          profileImageLink: "",
-          lat: 0.0,
-          long: 0.0,
-          createdAt: "",
-          updatedAt: "",address: "")
+   Rx<UserModel> currentUserData = UserModel(lat: 0.0, long: 0.0,
+        )
       .obs;
   @override
   void onInit() async {

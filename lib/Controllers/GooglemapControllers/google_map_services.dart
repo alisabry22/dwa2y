@@ -16,7 +16,7 @@ class GoogleMapServicers extends GetxController {
   Rx<TextEditingController> searchPlace = TextEditingController().obs;
   RxDouble latitude = 0.0.obs;
   RxDouble longitude = 0.0.obs;
-  RxString address="".obs;
+ 
   GoogleMapController? mapController;
   RxList<PlaceAutoCompletePrediction> placePredictions=RxList.empty();
   RxDouble zoomvalue=14.402209281921387.obs;
@@ -35,18 +35,7 @@ class GoogleMapServicers extends GetxController {
     ),
   ].obs;
 
-  Rx<UserModel> currentUserData = UserModel(
-          username: "",
-          phone: "",
-          type: "",
-          countrycode: "",
-          profileImageLink: "",
-          lat: 0.0,
-          long: 0.0,
-          createdAt: "",
-          updatedAt: "",
-          address: "")
-      .obs;
+  Rx<UserModel> currentUserData = UserModel(lat: 0.0,long: 0.0 ).obs;
 
   RxString currentuserID = "".obs;
 
@@ -137,7 +126,7 @@ class GoogleMapServicers extends GetxController {
 
     latitude.value=placesDetailsResponse.result.geometry!.location.lat;
     longitude.value=placesDetailsResponse.result.geometry!.location.lng;
-     address.value=description;
+
 
     updateCameraPosition();
     updateMarkers();
@@ -150,7 +139,7 @@ class GoogleMapServicers extends GetxController {
     final data={
       "lat":latitude.value,
       "long":longitude.value,
-      "address":address.value,
+
     };
     await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).update(data);
 
@@ -161,8 +150,6 @@ class GoogleMapServicers extends GetxController {
     positionSetting = await Geolocator.getCurrentPosition(desiredAccuracy:LocationAccuracy.best );
     latitude.value=positionSetting.latitude;
     longitude.value=positionSetting.longitude;
-List<Placemark> placemarks=await placemarkFromCoordinates(latitude.value, longitude.value);
-  address.value="${placemarks[0].subAdministrativeArea} ${placemarks[0].administrativeArea} ${placemarks[0].name}";
   updateFirebaseLocation();
 
   }

@@ -1,6 +1,9 @@
 import 'dart:io';
 
+import 'package:dwa2y/Controllers/MyAccountServices/myaccount_controller.dart';
 import 'package:dwa2y/Controllers/PrescriptionControllers/prescription_controller.dart';
+import 'package:dwa2y/Pages/full_photo.dart';
+import 'package:dwa2y/Widgets/custom_button_prescription.dart';
 import 'package:dwa2y/Widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,7 +39,39 @@ class UploadPrescription extends GetView<PrescriptionController> {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomButtonPrescription(text: "Delivery", onPressed: () {}),
+                  CustomButtonPrescription(text: "Pickup", onPressed: () {}),
+                ],
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height*0.08,
+                        
+                       decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color:Colors.grey.withOpacity(0.3),
+                       ),
+                        child: Text(
+                          controller
+                              .accountController.currentUserData.value.addresses![0].streetName!,
+                          style: GoogleFonts.roboto(color: Colors.white),
+                        )),
+                  ],
+                ),
+              ),
               GetX<PrescriptionController>(
                 builder: (controller) {
                   return Container(
@@ -47,13 +82,19 @@ class UploadPrescription extends GetView<PrescriptionController> {
                         color: Colors.grey.withOpacity(0.3)),
                     child: controller.pickedImage.value.isNotEmpty
                         ? InkWell(
-                          onTap: (){
-
-                          },
-                            child: FittedBox(
-                                fit: BoxFit.fill,
-                                child: Image.file(
-                                    File(controller.pickedImage.value))))
+                            onTap: () {},
+                            child: InkWell(
+                              onTap: () {
+                                Get.to(() => const FullPhoto());
+                              },
+                              child: Hero(
+                                tag: "enlargephoto",
+                                child: FittedBox(
+                                    fit: BoxFit.fill,
+                                    child: Image.file(
+                                        File(controller.pickedImage.value))),
+                              ),
+                            ))
                         : InkWell(
                             onTap: () {
                               Get.bottomSheet(
@@ -76,10 +117,10 @@ class UploadPrescription extends GetView<PrescriptionController> {
                                       CustomElevatedButton(
                                           width: 200,
                                           height: 60,
-                                          onPressed: () {
-                                            controller
+                                          onPressed: () async {
+                                            await controller
                                                 .pickPrescriptionFromGallery();
-                                                Get.back();
+                                            Get.back();
                                           },
                                           text: "Pick From Gallery"),
                                       const SizedBox(
@@ -88,8 +129,10 @@ class UploadPrescription extends GetView<PrescriptionController> {
                                       CustomElevatedButton(
                                           width: 200,
                                           height: 60,
-                                          onPressed: () {
-                                              Get.back();
+                                          onPressed: () async {
+                                            await controller
+                                                .pickPrescriptionFromCamera();
+                                            Get.back();
                                           },
                                           text: "Pick From Camera"),
                                     ],
@@ -104,8 +147,6 @@ class UploadPrescription extends GetView<PrescriptionController> {
                   );
                 },
               ),
-  
-
             ],
           ),
         ),

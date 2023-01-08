@@ -1,3 +1,4 @@
+import 'package:dwa2y/Controllers/AddressControllers/address_controller.dart';
 import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
 import 'package:dwa2y/Controllers/AuthRepositories/home_controller.dart';
 import 'package:dwa2y/Controllers/GooglemapControllers/google_map_services.dart';
@@ -20,6 +21,7 @@ class Binding implements Bindings{
     Get.lazyPut(()=> GoogleMapServicers(),fenix: true);
     Get.lazyPut(() => OrderController(),fenix: true);
     Get.lazyPut(() => PrescriptionController(),fenix: true);
+    Get.lazyPut(() => AddressController(),fenix: true);
 
   }
 
