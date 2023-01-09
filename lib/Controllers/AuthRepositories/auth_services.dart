@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
@@ -33,7 +34,15 @@ class AuthServices extends GetxController {
   RxString verificationId = "".obs;
   RxBool obscurepassword = true.obs;
   late SharedPreferences sharedprefs;
+ late StreamSubscription <DocumentSnapshot> listenStream;
 
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+    listenStream.cancel();
+  }
   @override
   void onInit() async {
     currentuser = Rx<User?>(FirebaseAuth.instance.currentUser);
@@ -45,6 +54,8 @@ class AuthServices extends GetxController {
 
     super.onInit();
   }
+
+
 
   _setInitialScreen(User? user) {
     user == null
@@ -196,14 +207,25 @@ class AuthServices extends GetxController {
 
   
     Future signOut()async {
+      listenStream.cancel();
     await FirebaseAuth.instance.signOut();
      
   }
   Stream<UserModel> _getCrruntUserData(){
 
+    if(FirebaseAuth.instance.currentUser!=null){
+         listenStream= FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots().listen((event) {
+    
+    });
+    }
+
+    
+  
            return FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots().map((event) {
           
             return UserModel.fromDocumentSnapshot(event);
           });
+
+
       }
 }
