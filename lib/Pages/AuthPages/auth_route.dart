@@ -11,6 +11,7 @@ class AuthRouter extends GetView<AuthServices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: controller.currentuser.value!=null?const DashBoardPage(): SignInScreen(),
     );
   }

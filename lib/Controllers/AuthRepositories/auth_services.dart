@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dwa2y/Controllers/AuthRepositories/home_controller.dart';
 import 'package:dwa2y/Controllers/LocationController/location_controller.dart';
+import 'package:dwa2y/Controllers/MyAccountServices/myaccount_controller.dart';
 import 'package:dwa2y/Models/Address.dart';
 import 'package:dwa2y/Models/user_model.dart';
+import 'package:dwa2y/Pages/AuthPages/auth_route.dart';
 import 'package:dwa2y/Pages/AuthPages/signin_screen.dart';
 import 'package:dwa2y/Pages/dashboard_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,20 +37,27 @@ class AuthServices extends GetxController {
   RxString verificationId = "".obs;
   RxBool obscurepassword = true.obs;
   late SharedPreferences sharedprefs;
- late StreamSubscription <DocumentSnapshot> listenStream;
+  StreamSubscription <DocumentSnapshot>? listenStream;
 
 
   @override
   void onClose() {
     // TODO: implement onClose
     super.onClose();
-    listenStream.cancel();
+    if(listenStream!=null){
+       listenStream!.cancel();
+    }
+   
   }
   @override
   void onInit() async {
     currentuser = Rx<User?>(FirebaseAuth.instance.currentUser);
     currentuser.bindStream(FirebaseAuth.instance.authStateChanges());
-         currentUserData.bindStream(_getCrruntUserData());
+    print("currentuser.value ${currentuser.value}");
+    if(currentuser.value!=null){
+       currentUserData.bindStream(_getCrruntUserData());
+    }
+        
       currentUserData.refresh();
     ever(currentuser, _setInitialScreen);
     sharedprefs = await SharedPreferences.getInstance();
@@ -58,9 +68,7 @@ class AuthServices extends GetxController {
 
 
   _setInitialScreen(User? user) {
-    user == null
-        ? Get.offAll(() =>  SignInScreen())
-        : Get.offAll(() => const DashBoardPage());
+    Get.offAll(()=>const AuthRouter());
   }
 
   Future pickprofileImage() async {
@@ -207,17 +215,26 @@ class AuthServices extends GetxController {
 
   
     Future signOut()async {
-      listenStream.cancel();
-    await FirebaseAuth.instance.signOut();
+      if(listenStream!=null){
+      //  Get.delete<HomeController>();
+      //   Get.delete<MyAccountController>();
+    
+        print("auth Controller");
+   listenStream!.cancel();
+       
+      }
+      // Get.delete<AuthServices>();
+      await FirebaseAuth.instance.signOut();
+   
+
      
   }
   Stream<UserModel> _getCrruntUserData(){
 
-    if(FirebaseAuth.instance.currentUser!=null){
-         listenStream= FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots().listen((event) {
+         listenStream= FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots().listen((event) {});
     
-    });
-    }
+    
+  
 
     
   

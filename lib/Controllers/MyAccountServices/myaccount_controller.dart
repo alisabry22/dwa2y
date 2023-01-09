@@ -15,9 +15,9 @@ Rx<TextEditingController> searchPlace=TextEditingController().obs;
 Rx<TextEditingController>usernameController=TextEditingController().obs;
 Rx<TextEditingController>emailController=TextEditingController().obs;
 RxString groupvalue="Male".obs;
+StreamSubscription <DocumentSnapshot>? listenStream;
 
-
-  Rx<UserModel> currentUserData= UserModel(lat: 0.0,long: 0.0,).obs;
+  //Rx<UserModel> currentUserData= UserModel(lat: 0.0,long: 0.0,).obs;
  late SharedPreferences sharedPreferences;
  RxString currentuserID="".obs;
 
@@ -26,30 +26,25 @@ RxString groupvalue="Male".obs;
     
 
      sharedPreferences=await SharedPreferences.getInstance();
-   
-      currentUserData.bindStream(_getCrruntUserData());
-      currentUserData.refresh();
   
+  
+    
 
-     
-     
-     
      super.onInit();
-
-
-
   }
 
-  Stream<UserModel> _getCrruntUserData(){
+  
+
+
+  
+
+  Stream<DocumentSnapshot> getCrruntUserData(){
 
         
-      
         
-   
-           return FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots().map((event) {
-          
-            return UserModel.fromDocumentSnapshot(event);
-          });
+
+    
+           return FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots();
       }
 
   Future updateBirthDay(String birthDay)async{
@@ -88,7 +83,7 @@ RxString groupvalue="Male".obs;
        
           
        
-     
+ 
         
       
   
