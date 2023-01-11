@@ -1,36 +1,26 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Models/user_model.dart';
 
 class HomeController extends GetxController {
 
-  late SharedPreferences sharedprefs;
-  String? sharedPrefCurrentUser;
-   Rx<UserModel> currentUserData = UserModel(lat: 0.0, long: 0.0,
-        )
-      .obs;
+
+   Rx<UserModel> currentUserData = UserModel(lat: 0.0, long: 0.0,).obs;
+   AuthServices authController=Get.find<AuthServices>();
+
   @override
   void onInit() async {
-    sharedprefs = await SharedPreferences.getInstance();
-    sharedPrefCurrentUser = sharedprefs.getString("UserID");
-    currentUserData.bindStream(_getCurrentUserData());
-   
+
+   currentUserData.value=authController.currentUserData.value;
+
+   authController.currentUserData.listen((p0) {
+    currentUserData.value=p0;
+   });
     super.onInit();
   }
 
-  Stream<UserModel> _getCurrentUserData() {
-
-    final usersCollection = FirebaseFirestore.instance.collection("users");
-
-        return usersCollection.doc(FirebaseAuth.instance.currentUser!.uid).snapshots().map((event) {
-      return UserModel.fromDocumentSnapshot(event);
-    });
-   
-  
-  }
 
 
 }

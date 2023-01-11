@@ -41,7 +41,7 @@ class MyAccountPage extends GetView<MyAccountController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Obx(()=>    Text(controller.currentUserData.value.username!,
+                    Obx(()=>    Text(controller.currentUserData.value.username!=null?controller.currentUserData.value.username!:"",
                         style: GoogleFonts.ubuntu(
                             fontSize: 16, fontWeight: FontWeight.bold)),),
                     const SizedBox(

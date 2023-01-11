@@ -42,7 +42,7 @@ class AuthServices extends GetxController {
 
   @override
   void onClose() {
-    // TODO: implement onClose
+
     super.onClose();
     if(listenStream!=null){
        listenStream!.cancel();
@@ -53,7 +53,6 @@ class AuthServices extends GetxController {
   void onInit() async {
     currentuser = Rx<User?>(FirebaseAuth.instance.currentUser);
     currentuser.bindStream(FirebaseAuth.instance.authStateChanges());
-    print("currentuser.value ${currentuser.value}");
     if(currentuser.value!=null){
        currentUserData.bindStream(_getCrruntUserData());
     }
@@ -111,47 +110,7 @@ class AuthServices extends GetxController {
 }
   }
 
-  // Future authenticateWithPhone(String phone) async {
-  //   await FirebaseAuth.instance.verifyPhoneNumber(
-  //     phoneNumber: phone,
-  //     verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {},
-  //     verificationFailed: (FirebaseAuthException error) {
-  //       if (error.code == 'invalid-phone-number') {
-  //         Get.snackbar("phone wrong", " Provided phone is wrong ",
-  //             snackPosition: SnackPosition.BOTTOM,
-  //             duration: const Duration(milliseconds: 5));
-  //       } else {
-  //         Get.snackbar("phone wrong", " Something went wrong please try again ",
-  //             snackPosition: SnackPosition.BOTTOM,
-  //             duration: const Duration(milliseconds: 5));
-  //       }
-  //     },
-  //     codeSent: (String verificationId, int? forceResendingToken) {
-  //       this.verificationId.value = verificationId;
-  //     },
-  //     codeAutoRetrievalTimeout: (String verificationId) {
-  //       this.verificationId.value = verificationId;
-  //     },
-  //   );
-  // }
 
-  // Future verifyOTP(String otp) async {
-  //   UserCredential credential = await FirebaseAuth.instance
-  //       .signInWithCredential(PhoneAuthProvider.credential(
-  //           verificationId: verificationId.value, smsCode: otp));
-
-  //   if (FirebaseAuth.instance.currentUser != null) {
-  //     sharedprefs.setString("UserID", FirebaseAuth.instance.currentUser!.uid);
-  //   }
-
-  //   if (credential.user != null) {
-  //     showDialog();
-  //     await saveWholeDataInDatabase();
-  //     Get.offAll(() => const HomeScreen());
-  //   } else {
-  //     Get.back();
-  //   }
-  // }
 
   Future saveDataInFirebase(photolink) async {
 
@@ -220,7 +179,7 @@ class AuthServices extends GetxController {
       //   Get.delete<MyAccountController>();
     
         print("auth Controller");
-   listenStream!.cancel();
+  await listenStream!.cancel();
        
       }
       // Get.delete<AuthServices>();

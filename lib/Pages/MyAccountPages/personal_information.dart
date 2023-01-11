@@ -149,8 +149,7 @@ class PersonalInformation extends StatelessWidget {
                                     controller.currentUserData.value.birthday !=
                                                 null &&
                                             controller.currentUserData.value
-                                                    .birthday !=
-                                                null
+                                                    .birthday!.isNotEmpty
                                         ? DateTime.parse(controller
                                             .currentUserData.value.birthday!)
                                         : DateTime.now(),
