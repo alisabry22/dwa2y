@@ -36,13 +36,14 @@ class UploadPrescription extends GetView<PrescriptionController> {
             Color.fromARGB(255, 1, 15, 57),
           ]),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.05,
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -50,105 +51,48 @@ class UploadPrescription extends GetView<PrescriptionController> {
                   CustomButtonPrescription(text: "Pickup", onPressed: () {}),
                 ],
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.08,
                 decoration: BoxDecoration(
+                  color: Colors.black26,
                   borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.white12),
                 ),
-                child: Column(
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height*0.08,
-                        
-                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color:Colors.grey.withOpacity(0.3),
-                       ),
-                        child: Text(
-                          controller
-                              .accountController.currentUserData.value.addresses![0].streetName!,
-                          style: GoogleFonts.roboto(color: Colors.white),
-                        )),
-                  ],
-                ),
+                child: controller.accountController.addresses.isNotEmpty
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Obx(() => Text(
+                                controller
+                                    .accountController.addresses[0].streetName!,
+                                style: GoogleFonts.roboto(color: Colors.white),
+                              )),
+                          TextButton(onPressed: () {}, child: const Text("Change")),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Select Address to deliver",
+                              style: GoogleFonts.roboto(color: Colors.white),
+                            ),
+                          ),
+                          TextButton(onPressed: () {}, child:const Text("Select")),
+                        ],
+                      ),
               ),
-              GetX<PrescriptionController>(
-                builder: (controller) {
-                  return Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Colors.grey.withOpacity(0.3)),
-                    child: controller.pickedImage.value.isNotEmpty
-                        ? InkWell(
-                            onTap: () {},
-                            child: InkWell(
-                              onTap: () {
-                                Get.to(() => const FullPhoto());
-                              },
-                              child: Hero(
-                                tag: "enlargephoto",
-                                child: FittedBox(
-                                    fit: BoxFit.fill,
-                                    child: Image.file(
-                                        File(controller.pickedImage.value))),
-                              ),
-                            ))
-                        : InkWell(
-                            onTap: () {
-                              Get.bottomSheet(
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.2,
-                                  color: Colors.white,
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        "Pick Prescription From",
-                                        style: GoogleFonts.roboto(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      CustomElevatedButton(
-                                          width: 200,
-                                          height: 60,
-                                          onPressed: () async {
-                                            await controller
-                                                .pickPrescriptionFromGallery();
-                                            Get.back();
-                                          },
-                                          text: "Pick From Gallery"),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      CustomElevatedButton(
-                                          width: 200,
-                                          height: 60,
-                                          onPressed: () async {
-                                            await controller
-                                                .pickPrescriptionFromCamera();
-                                            Get.back();
-                                          },
-                                          text: "Pick From Camera"),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                            child: const Icon(
-                              Icons.add_a_photo,
-                              color: Colors.white,
-                            )),
-                  );
-                },
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

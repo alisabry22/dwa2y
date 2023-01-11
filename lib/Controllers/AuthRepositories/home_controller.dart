@@ -14,7 +14,6 @@ class HomeController extends GetxController {
   void onInit() async {
 
    currentUserData.value=authController.currentUserData.value;
-  print("home controller ${currentUserData.value.username}");
    authController.currentUserData.listen((p0) {
     currentUserData.value=p0;
    });

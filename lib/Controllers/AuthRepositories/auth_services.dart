@@ -176,13 +176,11 @@ class AuthServices extends GetxController {
 
   Future signOut() async {
     if (listenStream != null) {
-      //  Get.delete<HomeController>();
-      //   Get.delete<MyAccountController>();
+ 
 
       print("auth Controller");
       await listenStream!.cancel();
     }
-    // Get.delete<AuthServices>();
     await FirebaseAuth.instance.signOut();
   }
 
@@ -192,6 +190,7 @@ class AuthServices extends GetxController {
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .snapshots()
         .listen((event) {
+          print(event.data());
           currentUserData.value=UserModel.fromDocumentSnapshot(event);
           currentUserData.refresh();
         });

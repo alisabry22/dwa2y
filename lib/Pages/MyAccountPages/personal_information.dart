@@ -61,36 +61,38 @@ class PersonalInformation extends StatelessWidget {
                   builder: (controller) {
                     return Column(
                       children: [
-                        CustomListTile(
-                          title: "Name",
-                          onTap: () {
-                            Get.defaultDialog(
-                              confirm: CustomElevatedButton(
-                                  width: 120,
-                                  height: 60,
-                                  onPressed: () async {
-                                    await controller.updateUserName(controller.usernameController.value.text.trim());
-                                    Get.back();
-                                  },
-                                  text: "Confirm"),
-                              cancel: CustomElevatedButton(
-                                  width: 120,
-                                  height: 60,
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                  text: "Cancel"),
-                              content: CustomTextField(
-                                  hintText: "username",
-                                  validator: (p0) {
-                                    return null;
-                                  },
-                                  controller:
-                                      controller.usernameController.value),
-                            );
-                          },
-                          subtitile: controller.currentUserData.value.username!,
-                        ),
+                        Obx(()=>(
+                           CustomListTile(
+                            title: "Name",
+                            onTap: () {
+                              Get.defaultDialog(
+                                confirm: CustomElevatedButton(
+                                    width: 120,
+                                    height: 60,
+                                    onPressed: () async {
+                                      await controller.updateUserName(controller.usernameController.value.text.trim());
+                                      Get.back();
+                                    },
+                                    text: "Confirm"),
+                                cancel: CustomElevatedButton(
+                                    width: 120,
+                                    height: 60,
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    text: "Cancel"),
+                                content: CustomTextField(
+                                    hintText: "username",
+                                    validator: (p0) {
+                                      return null;
+                                    },
+                                    controller:
+                                        controller.usernameController.value),
+                              );
+                            },
+                            subtitile: controller.currentUserData.value.username!,
+                          )
+                        )),
                         CustomListTile(
                           title: "Email",
                           subtitile:

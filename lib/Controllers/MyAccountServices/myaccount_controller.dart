@@ -5,7 +5,6 @@ import 'package:dwa2y/Controllers/AuthRepositories/auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Models/user_model.dart';
 
@@ -26,11 +25,9 @@ class MyAccountController extends GetxController {
     
 
     currentUserData.value=accountController.currentUserData.value;
-      print("account controller ${currentUserData.value.username}");
 
     accountController.currentUserData.listen((p0) {
       currentUserData.value=p0;
-      print("my account controller changed");
     });
 
 
