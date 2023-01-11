@@ -17,11 +17,7 @@ class MyAccountPage extends GetView<MyAccountController> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<DocumentSnapshot>(
-      stream: controller.getCrruntUserData(),
-      builder: (context, snapshot) {
-
-        return Scaffold(
+    return  Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: const Color.fromARGB(255, 4, 16, 89),
@@ -32,9 +28,9 @@ class MyAccountPage extends GetView<MyAccountController> {
                
     
                    CircleAvatar(
-                    backgroundImage: snapshot.data!.get("profileImageLink").toString().isNotEmpty
-                        ? CachedNetworkImageProvider(
-                               snapshot.data!.get("profileImageLink").toString())
+                    backgroundImage:controller.currentUserData.value.profileImageLink!=null && controller.currentUserData.value.profileImageLink!.isNotEmpty?
+                        CachedNetworkImageProvider(
+                               controller.currentUserData.value.profileImageLink!)
                             as ImageProvider
                         : const AssetImage("assets/images/patient.png"),
                     radius: 20,
@@ -45,13 +41,13 @@ class MyAccountPage extends GetView<MyAccountController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(snapshot.data!.get("username").toString(),
+                    Obx(()=>    Text(controller.currentUserData.value.username!,
                         style: GoogleFonts.ubuntu(
-                            fontSize: 16, fontWeight: FontWeight.bold)),
+                            fontSize: 16, fontWeight: FontWeight.bold)),),
                     const SizedBox(
                       height: 5,
                     ),
-                    Text("0${snapshot.data!.get("phone").toString()}",
+                    Text("0${controller.currentUserData.value.phone}",
                         style: GoogleFonts.ubuntu(fontSize: 16)),
                   ],
               
@@ -125,7 +121,7 @@ class MyAccountPage extends GetView<MyAccountController> {
                             builder: (controller) {
                               return  CustomListTile(onTap: (){
                               Get.to(()=>const MyAddresses());
-                            }, leading: const Icon(Icons.home,color: Colors.white, ),title: "Billing Address",subtitile:snapshot.data!.get("addresses")!=null&&snapshot.data!.get("addresses").toString().isNotEmpty ?controller.currentUserData.value.addresses![0].streetName!:"" );
+                            }, leading: const Icon(Icons.home,color: Colors.white, ),title: "Billing Address",subtitile:controller.currentUserData.value.addresses!=null&&controller.currentUserData.value.addresses!.isNotEmpty ?controller.currentUserData.value.addresses![0].streetName!:"" );
                             },
                           
                           ),
@@ -160,8 +156,7 @@ class MyAccountPage extends GetView<MyAccountController> {
             ),
           ),
         );
-      }
-    );
+
   }
 }
 

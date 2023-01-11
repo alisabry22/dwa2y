@@ -34,7 +34,7 @@ List<Address>? addresses;
       long: documentSnapshot.data()!["long"]??0.0,
       countrycode: documentSnapshot.data()!["countryCode"]??"",
       type: documentSnapshot.data()!["type"]??"",
-      addresses: documentSnapshot.data()!["address"]!=null?documentSnapshot.get("address").map<Address>((m)=>Address.fromJson(m)).toList():<Address>[],
+     addresses: <Address>[] ,//documentSnapshot.data()!["address"]!=null?documentSnapshot.get("address").map<Address>((m)=>Address.fromJson(m)).toList():<Address>[],
       birthday: documentSnapshot.data()!["birthday"]??"",
       gender: documentSnapshot.data()!["gender"]??"",
       email: documentSnapshot.data()!["email"]??"",
