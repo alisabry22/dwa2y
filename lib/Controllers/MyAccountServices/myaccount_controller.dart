@@ -22,12 +22,15 @@ class MyAccountController extends GetxController {
   AuthServices accountController=Get.find<AuthServices>();
 
   @override
-  void onInit() async {
+  void onInit()  {
     
 
     currentUserData.value=accountController.currentUserData.value;
+      print("account controller ${currentUserData.value.username}");
+
     accountController.currentUserData.listen((p0) {
       currentUserData.value=p0;
+      print("my account controller changed");
     });
 
 

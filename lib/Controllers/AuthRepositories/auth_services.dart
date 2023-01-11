@@ -19,17 +19,24 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthServices extends GetxController {
   late Rx<User?> currentuser;
-  Rx<UserModel> usermodel = UserModel(lat: 0.0, long: 0.0,).obs;
-  Rx<UserModel> currentUserData= UserModel(lat: 0.0,long: 0.0,).obs;
+  Rx<UserModel> usermodel = UserModel(
+    lat: 0.0,
+    long: 0.0,
+  ).obs;
+  Rx<UserModel> currentUserData = UserModel(
+    lat: 0.0,
+    long: 0.0,
+  ).obs;
   RxBool isCustomer = true.obs;
   RxString groupValue = "Customer".obs;
   RxBool isLoading = false.obs;
-  RxList<Address> addresses=RxList.empty();
+  RxList<Address> addresses = RxList.empty();
 //TextEditing Controllers for Signup screen
   Rx<TextEditingController> usernameController = TextEditingController().obs;
   Rx<TextEditingController> phoneController = TextEditingController().obs;
   Rx<TextEditingController> passwordController = TextEditingController().obs;
-  Rx<TextEditingController> confirmPasswordController =TextEditingController().obs;
+  Rx<TextEditingController> confirmPasswordController =
+      TextEditingController().obs;
   Rx<TextEditingController> emailController = TextEditingController().obs;
   RxString profileImagePath = "".obs;
   RxString countrycode = "EG".obs;
@@ -37,37 +44,35 @@ class AuthServices extends GetxController {
   RxString verificationId = "".obs;
   RxBool obscurepassword = true.obs;
   late SharedPreferences sharedprefs;
-  StreamSubscription <DocumentSnapshot>? listenStream;
-
+  StreamSubscription<DocumentSnapshot>? listenStream;
 
   @override
   void onClose() {
-
     super.onClose();
-    if(listenStream!=null){
-       listenStream!.cancel();
+    if (listenStream != null) {
+      listenStream!.cancel();
     }
-   
   }
+
   @override
   void onInit() async {
     currentuser = Rx<User?>(FirebaseAuth.instance.currentUser);
     currentuser.bindStream(FirebaseAuth.instance.authStateChanges());
-    if(currentuser.value!=null){
-       currentUserData.bindStream(_getCrruntUserData());
-    }
-        
-      currentUserData.refresh();
+  if(FirebaseAuth.instance.currentUser!=null){
+    print("Get current user data calledd");
+  _getCrruntUserData();
+  }
+
+
+   
     ever(currentuser, _setInitialScreen);
     sharedprefs = await SharedPreferences.getInstance();
 
     super.onInit();
   }
 
-
-
   _setInitialScreen(User? user) {
-    Get.offAll(()=>const AuthRouter());
+    Get.offAll(() => const AuthRouter());
   }
 
   Future pickprofileImage() async {
@@ -82,16 +87,16 @@ class AuthServices extends GetxController {
 
   Future signUpWithEmailandPassword() async {
     try {
-      final credential= await  FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.value.text.trim(),
-          password: passwordController.value.text.trim());
-          
-      if(credential.user!=null){
+      final credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailController.value.text.trim(),
+              password: passwordController.value.text.trim());
+
+      if (credential.user != null) {
         sharedprefs.setString("UserID", credential.user!.uid);
       }
-          
 
-    return true;
+      return true;
     } on FirebaseAuthException catch (e) {
       return e.code;
     }
@@ -100,27 +105,24 @@ class AuthServices extends GetxController {
   Future signInMethod() async {
     showDialog();
     try {
-  await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.value.text.trim(),
-      password: passwordController.value.text.trim());
-     return true; 
-} on FirebaseAuthException catch(e) {
-
-    return e.code.toString();
-}
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.value.text.trim(),
+          password: passwordController.value.text.trim());
+      return true;
+    } on FirebaseAuthException catch (e) {
+      return e.code.toString();
+    }
   }
 
-
-
   Future saveDataInFirebase(photolink) async {
-
     final userId = FirebaseAuth.instance.currentUser!.uid;
     final usersCollection = FirebaseFirestore.instance.collection("users");
     var locationController = Get.find<LocationController>();
-       List<Placemark> placemarks=await placemarkFromCoordinates(locationController.lat.value, locationController.long.value);
-      Placemark place=placemarks[0];
-     // address.value="${place.street!} ${place.administrativeArea!} ${place.locality!}";
-      
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        locationController.lat.value, locationController.long.value);
+    Placemark place = placemarks[0];
+    // address.value="${place.street!} ${place.administrativeArea!} ${place.locality!}";
+
     UserModel userModel = UserModel(
       username: usernameController.value.text,
       phone: phoneController.value.text,
@@ -155,7 +157,7 @@ class AuthServices extends GetxController {
     showDialog();
     String photourl = await uploadImageToDatabase();
     await saveDataInFirebase(photourl);
-    Get.offAll(()=>const DashBoardPage());
+    Get.offAll(() => const DashBoardPage());
   }
 
   void showDialog() {
@@ -172,36 +174,28 @@ class AuthServices extends GetxController {
     );
   }
 
-  
-    Future signOut()async {
-      if(listenStream!=null){
+  Future signOut() async {
+    if (listenStream != null) {
       //  Get.delete<HomeController>();
       //   Get.delete<MyAccountController>();
-    
-        print("auth Controller");
-  await listenStream!.cancel();
-       
-      }
-      // Get.delete<AuthServices>();
-      await FirebaseAuth.instance.signOut();
-   
 
-     
+      print("auth Controller");
+      await listenStream!.cancel();
+    }
+    // Get.delete<AuthServices>();
+    await FirebaseAuth.instance.signOut();
   }
-  Stream<UserModel> _getCrruntUserData(){
 
-         listenStream= FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots().listen((event) {});
-    
-    
-  
+   _getCrruntUserData() {
+    listenStream = FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .snapshots()
+        .listen((event) {
+          currentUserData.value=UserModel.fromDocumentSnapshot(event);
+          currentUserData.refresh();
+        });
 
-    
-  
-           return FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).snapshots().map((event) {
-          
-            return UserModel.fromDocumentSnapshot(event);
-          });
-
-
-      }
+   
+  }
 }
